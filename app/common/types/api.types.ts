@@ -1,19 +1,149 @@
-// import { HttpStatusCode } from "axios";
+// ======== Admin Types ========//
+export interface IAdminProfile {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  avatar?: string;
+}
 
-// export interface IResponse<T> {
-//   data: T;
-//   result?: boolean;
-//   message: string;
-//   statusCode?: HttpStatusCode;
-// }
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: boolean;
+  created_at: string;
+}
 
-// export interface IResponse2<T> {
-//   data: { data: T };
-//   result?: boolean;
-//   message: string;
-//   statusCode?: HttpStatusCode;
-// }
-// export interface IPages {
-//   id: number;
-//   key: string;
-// }
+// ======== Auth Types ========//
+export interface IAuthProfile {
+  id: string;
+  name: string;
+  role: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
+// ======== Campaign Types ========//
+export interface ICampaign {
+  id: number;
+  title: string;
+  description?: string;
+  img_url?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ICampaignCreate {
+  title: string;
+  description?: string;
+  img_url?: string;
+}
+
+export interface ICampaignUpdate {
+  title?: string;
+  description?: string;
+  img_url?: string;
+}
+
+// ======== Category Types ========//
+export interface ICategory {
+  id: number;
+  name: string;
+  description?: string;
+  img_url?: string;
+  created_at?: string;
+  updated_at?: string;
+  status?: boolean;
+}
+
+export interface ICategoryCreate {
+  name: string;
+  description?: string;
+  img_url?: string;
+}
+
+export interface ICategoryUpdate {
+  name?: string;
+  description?: string;
+  img_url?: string;
+}
+
+// ======== Product Types ========//
+
+export enum ProductMeasure {
+  KG = "kg",
+  GR = "gr",
+  LITRE = "litre",
+  ML = "ml",
+  METER = "meter",
+  CM = "cm",
+  MM = "mm",
+  PIECE = "piece",
+  PACKET = "packet",
+  BOX = "box",
+}
+
+export interface IProduct {
+  id: number;
+  title: string;
+  description?: string;
+  price: string;
+  type: ProductMeasure;
+  img_url?: string;
+  category_id: number;
+  created_at?: string;
+  updated_at?: string;
+  status?: boolean;
+}
+
+export interface IProductCreate {
+  title: string;
+  description?: string;
+  price: string;
+  type: ProductMeasure;
+  img_url?: string;
+  category_id: number;
+}
+
+export interface IProductUpdate {
+  title?: string;
+  description?: string;
+  price?: string;
+  type?: ProductMeasure;
+  img_url?: string;
+  category_id?: number;
+}
+
+// ======== Order Types ========//
+export interface IOrder {
+  id: number;
+  user_id: number;
+  total_amount: number;
+  status: string;
+  payment_status: string;
+  delivery_address: string;
+  delivery_phone: string;
+  notes?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IOrderStats {
+  total_orders: number;
+  total_revenue: number;
+  pending_orders: number;
+  completed_orders: number;
+  cancelled_orders: number;
+}
+
+export interface IOrderStatusUpdate {
+  status: string;
+  notes?: string;
+}

@@ -1,29 +1,12 @@
+import {
+  ICategory,
+  ICategoryCreate,
+  ICategoryUpdate,
+} from "../../common/types/api.types";
 import { API } from "../EndpointResources.g";
 
 import Fetcher from "@/common/helpers/instance";
 import { REQUEST_METHODS } from "@/common/utils/networking";
-
-export interface ICategory {
-  id: number;
-  name: string;
-  description?: string;
-  img_url?: string;
-  created_at?: string;
-  updated_at?: string;
-  status?: boolean;
-}
-
-export interface ICategoryCreate {
-  name: string;
-  description?: string;
-  img_url?: string;
-}
-
-export interface ICategoryUpdate {
-  name?: string;
-  description?: string;
-  img_url?: string;
-}
 
 export const createCategory = async (
   data: ICategoryCreate
