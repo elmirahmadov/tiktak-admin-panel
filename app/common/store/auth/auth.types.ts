@@ -1,4 +1,4 @@
-import { ILogin, ILoginResponse } from "../../../services/api/auth.api";
+import { ILogin, ILoginResponse } from "../../../common/types/api.types";
 
 export interface IAuthStoreActions {
   setLoading: (loading: boolean) => void;

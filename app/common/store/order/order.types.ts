@@ -2,7 +2,7 @@ import {
   IOrder,
   IOrderStats,
   IOrderStatusUpdate,
-} from "../../../services/api/order.api";
+} from "../../../common/types/api.types";
 
 export interface IOrderStoreActions {
   setLoading: (loading: boolean) => void;

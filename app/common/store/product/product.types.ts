@@ -2,7 +2,7 @@ import {
   IProduct,
   IProductCreate,
   IProductUpdate,
-} from "../../../services/api/product.api";
+} from "../../../common/types/api.types";
 
 export interface IProductStoreActions {
   setLoading: (loading: boolean) => void;
