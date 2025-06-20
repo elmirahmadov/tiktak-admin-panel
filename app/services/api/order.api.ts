@@ -1,33 +1,12 @@
+import {
+  IOrder,
+  IOrderStats,
+  IOrderStatusUpdate,
+} from "../../common/types/api.types";
 import { API } from "../EndpointResources.g";
 
 import Fetcher from "@/common/helpers/instance";
 import { REQUEST_METHODS } from "@/common/utils/networking";
-
-export interface IOrder {
-  id: number;
-  user_id: number;
-  total_amount: number;
-  status: string;
-  payment_status: string;
-  delivery_address: string;
-  delivery_phone: string;
-  notes?: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface IOrderStats {
-  total_orders: number;
-  total_revenue: number;
-  pending_orders: number;
-  completed_orders: number;
-  cancelled_orders: number;
-}
-
-export interface IOrderStatusUpdate {
-  status: string;
-  notes?: string;
-}
 
 export const getAllOrders = async (): Promise<IOrder[]> => {
   try {

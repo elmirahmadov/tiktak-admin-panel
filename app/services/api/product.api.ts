@@ -1,51 +1,12 @@
+import {
+  IProduct,
+  IProductCreate,
+  IProductUpdate,
+} from "../../common/types/api.types";
 import { API } from "../EndpointResources.g";
 
 import Fetcher from "@/common/helpers/instance";
 import { REQUEST_METHODS } from "@/common/utils/networking";
-
-export enum ProductMeasure {
-  KG = "kg",
-  GR = "gr",
-  LITRE = "litre",
-  ML = "ml",
-  METER = "meter",
-  CM = "cm",
-  MM = "mm",
-  PIECE = "piece",
-  PACKET = "packet",
-  BOX = "box",
-}
-
-export interface IProduct {
-  id: number;
-  title: string;
-  description?: string;
-  price: string;
-  type: ProductMeasure;
-  img_url?: string;
-  category_id: number;
-  created_at?: string;
-  updated_at?: string;
-  status?: boolean;
-}
-
-export interface IProductCreate {
-  title: string;
-  description?: string;
-  price: string;
-  type: ProductMeasure;
-  img_url?: string;
-  category_id: number;
-}
-
-export interface IProductUpdate {
-  title?: string;
-  description?: string;
-  price?: string;
-  type?: ProductMeasure;
-  img_url?: string;
-  category_id?: number;
-}
 
 export const getAllProducts = async (): Promise<IProduct[]> => {
   try {

@@ -1,28 +1,12 @@
+import {
+  ICampaign,
+  ICampaignCreate,
+  ICampaignUpdate,
+} from "../../common/types/api.types";
 import { API } from "../EndpointResources.g";
 
 import Fetcher from "@/common/helpers/instance";
 import { REQUEST_METHODS } from "@/common/utils/networking";
-
-export interface ICampaign {
-  id: number;
-  title: string;
-  description?: string;
-  img_url?: string;
-  created_at?: string;
-  updated_at?: string;
-}
-
-export interface ICampaignCreate {
-  title: string;
-  description?: string;
-  img_url?: string;
-}
-
-export interface ICampaignUpdate {
-  title?: string;
-  description?: string;
-  img_url?: string;
-}
 
 export const getAllCampaigns = async (): Promise<ICampaign[]> => {
   try {
