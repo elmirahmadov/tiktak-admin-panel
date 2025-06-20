@@ -1,1 +1,1 @@
-# TikTak-tiktak-admin-panel
+# TİK TAK Admin Panel
