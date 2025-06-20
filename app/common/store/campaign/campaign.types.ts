@@ -2,7 +2,7 @@ import {
   ICampaign,
   ICampaignCreate,
   ICampaignUpdate,
-} from "../../../services/api/campaign.api";
+} from "../../../common/types/api.types";
 
 export interface ICampaignStoreActions {
   setLoading: (loading: boolean) => void;

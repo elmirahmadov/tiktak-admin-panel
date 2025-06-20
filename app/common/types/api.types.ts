@@ -30,6 +30,14 @@ export interface ILogin {
   password: string;
 }
 
+export interface ILoginResponse {
+  user: IAuthProfile;
+  tokens: {
+    access_token: string;
+    refresh_token: string;
+  };
+}
+
 // ======== Campaign Types ========//
 export interface ICampaign {
   id: number;

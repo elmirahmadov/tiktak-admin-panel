@@ -2,7 +2,7 @@ import {
   ICategory,
   ICategoryCreate,
   ICategoryUpdate,
-} from "../../../services/api/category.api";
+} from "../../../common/types/api.types";
 
 export interface ICategoryStoreActions {
   setLoading: (loading: boolean) => void;

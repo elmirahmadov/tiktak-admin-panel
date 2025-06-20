@@ -1,4 +1,4 @@
-import { IProfile, IUser } from "../../../services/api/admin.api";
+import { IAdminProfile, IUser } from "../../../common/types/api.types";
 
 export interface IAdminStoreActions {
   setLoading: (loading: boolean) => void;
@@ -9,7 +9,7 @@ export interface IAdminStoreActions {
 
 export interface IAdminStore {
   loading: boolean;
-  profile: IProfile | null;
+  profile: IAdminProfile | null;
   users: IUser[];
   actions: IAdminStoreActions;
 }
