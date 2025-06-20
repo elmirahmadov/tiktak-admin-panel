@@ -1,0 +1,32 @@
+.no_permission_box{
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    max-width: 430px;
+    margin: auto;
+    padding: 32px 24px;
+    text-align: center;
+}
+.no_permission_box svg{
+    width: 40px;
+    height: 40px;
+}
+.no_permission_box h1{
+    color: var(--UI-Text-Primary);
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 40px; /* 125% */
+}
+.no_permission_box p{
+    color: var(--UI-Text-Tertiary);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 133.333% */
+    margin-bottom: 8px;
+}
