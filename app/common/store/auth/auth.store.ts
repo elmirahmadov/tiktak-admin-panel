@@ -69,12 +69,6 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
               isAuthenticated: true,
             });
 
-            notification.success({
-              message: "Giriş Başarılı!",
-              description: "Hoş geldiniz, yönlendiriliyorsunuz.",
-              placement: "topRight",
-            });
-
             cl();
             return;
           }
@@ -86,8 +80,8 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
         console.error("Login error detail:", error);
         const errorResponse = error as ErrorResponse;
         notification.error({
-          message: "Giriş Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Bilinmeyen bir hata oluştu"}`,
+          message: "Giriş Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -175,14 +169,14 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
           localStorage.removeItem("refresh_token");
         }
       } catch (error) {
-        console.error("Profil yükleme hatası:", error);
+        console.error("Profil yükləmə xətası:", error);
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
 
         const errorResponse = error as ErrorResponse;
         notification.error({
-          message: "Profil Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Profil bilgilerini yüklerken bir hata oluştu"}`,
+          message: "Profil yükləmə xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -204,12 +198,6 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
         accessToken: null,
         refreshToken: null,
         isAuthenticated: false,
-      });
-
-      notification.info({
-        message: "Çıkış Yapıldı",
-        description: "Başarıyla çıkış yaptınız.",
-        placement: "topRight",
       });
 
       cb?.();
