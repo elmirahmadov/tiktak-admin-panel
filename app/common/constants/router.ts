@@ -1,9 +1,8 @@
 export const ROUTER = {
   LOGIN: "/login",
-  DASHBOARD: "/dashboard",
   CATEGORIES: "/categories",
-  PRODUCTS: "/products",
   CAMPAIGNS: "/campaigns",
+  PRODUCTS: "/products",
+  USERS: "/users",
   ORDERS: "/orders",
-  PROFILE: "/profile",
 };

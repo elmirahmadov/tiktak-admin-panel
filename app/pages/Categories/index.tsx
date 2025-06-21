@@ -1,7 +1,2 @@
-import React from "react";
-
-function index() {
-  return <div>index</div>;
-}
-
-export default index;
+import Categories from "./components/Categories";
+export default Categories;
