@@ -22,8 +22,13 @@
    min-height: 96px;
 }
 
+.message {
+	font-weight: bold;
+	font-size: 17px;
+}
+
 .submitButton {
    margin-top: 16px;
-	padding: 20px 10px;
+	padding: 20px 10p;
    width: 100%;
 }

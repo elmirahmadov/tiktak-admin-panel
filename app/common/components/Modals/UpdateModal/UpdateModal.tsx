@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Input, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { Button, Input, Modal, Upload } from "antd";
+import React, { useEffect, useState } from "react";
 import modalStyles from "../modalForm.module.css";
 // import styles from "./UpdateModal.module.css";
-
 
 interface Props {
    open: boolean;
@@ -62,7 +61,12 @@ const UpdateModal: React.FC<Props> = ({ open, onClose, data, onSubmit }) => {
             />
          </div>
 
-         <Button type="primary" onClick={handleSubmit} className={modalStyles.submitButton}>
+         <Button
+            type="primary"
+            onClick={handleSubmit}
+            className={modalStyles.submitButton}
+            style={{ backgroundColor: "#52c41a", borderColor: "#52c41a" }}
+         >
             Məlumatları yenilə
          </Button>
       </Modal>

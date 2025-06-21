@@ -1,5 +1,6 @@
+import { Button, Modal } from "antd";
 import React from "react";
-import { Modal, Button } from "antd";
+import modalStyles from "../modalForm.module.css";
 import styles from "./ConfirmationModal.module.css";
 
 interface Props {
@@ -15,18 +16,20 @@ const ConfirmationModal: React.FC<Props> = ({ open, onCancel, onConfirm, imageUr
 
    return (
       <Modal open={open} onCancel={onCancel} footer={null}>
-         <div className={styles.container}>
-            <img src={defaultImage} alt="Şəkil" className={styles.image} />
-            <p className={styles.message}>{message}</p>
-            <div className={styles.buttonGroup}>
+         <div className={`${modalStyles.container} ${styles.allCenter}`}>
+            <img src={defaultImage} alt="Şəkil" className={`${modalStyles.image} ${styles.img}`} />
+            <p className={modalStyles.message}>{message}</p>
+            <div className={`${modalStyles.buttonGroup} ${styles.buttonGroup}`}>
                <Button
                   type="primary"
+                  className={modalStyles.submitButton}
                   style={{ backgroundColor: "#52c41a", borderColor: "#52c41a" }}
                   onClick={onConfirm}
                >
                   Təsdiqlə
                </Button>
                <Button
+                  className={modalStyles.submitButton}
                   onClick={onCancel}
                   style={{
                      backgroundColor: "#fff",

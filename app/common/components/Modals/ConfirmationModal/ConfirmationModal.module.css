@@ -1,0 +1,13 @@
+.allCenter {
+   text-align: center;
+}
+
+.img {
+	width: 323px;
+	height: 323px;
+}
+
+.buttonGroup {
+	display: flex;
+	gap: 10px;
+}

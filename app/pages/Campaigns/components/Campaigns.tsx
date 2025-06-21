@@ -5,6 +5,8 @@ import { useCampaignActions, useCampaigns } from "@/common/store";
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import styles from "./Compaigns.module.css";
+import deleteCompaignPicture from "../../../assets/images/0d698440dfdd3dfe26530636a5db03b51ed51fdd.png";
+
 
 const formatDate = (isoDate: string | null): string => {
    if (!isoDate) return "Məlumat yoxdur";
@@ -156,8 +158,8 @@ const Compaigns: React.FC = () => {
                   setSelectedCampaign(null);
                }}
                onConfirm={handleDeleteConfirm}
-               imageUrl={selectedCampaign.img_url}
-               message={`“${selectedCampaign.title}” kampaniyasını silmək istədiyinizə əminsiniz?`}
+               imageUrl={deleteCompaignPicture}
+               message={`“${selectedCampaign.title}” kampaniyasını silməyə əminsinizmi?`}
             />
          )}
       </div>
