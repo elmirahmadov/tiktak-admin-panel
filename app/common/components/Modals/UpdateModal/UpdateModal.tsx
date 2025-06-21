@@ -41,7 +41,7 @@ const UpdateModal: React.FC<Props> = ({ open, onClose, data, onSubmit }) => {
    return (
       <Modal title="Məlumatı Yenilə" open={open} onCancel={onClose} footer={null}>
          <div className={modalStyles.formGroup}>
-            <label className={modalStyles.label}>Şəkil</label>
+            <label className={modalStyles.label}></label>
             <Upload beforeUpload={handleImageUpload} showUploadList={false} accept="image/*">
                <Button icon={<UploadOutlined />}>Şəkil seç</Button>
             </Upload>
