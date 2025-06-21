@@ -1,0 +1,38 @@
+.infoCard {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.infoCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.infoCard .ant-card-head {
+  background: #fafafa;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.infoCard .ant-card-head-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.infoCard .ant-card-body {
+  padding: 16px 20px;
+}
+
+.infoCard .ant-descriptions-item-label {
+  font-weight: 500;
+  color: #666;
+  font-size: 13px;
+}
+
+.infoCard .ant-descriptions-item-content {
+  color: #333;
+  font-size: 13px;
+}

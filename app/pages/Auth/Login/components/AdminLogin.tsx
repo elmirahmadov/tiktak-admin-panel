@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./AdminLogin.module.css";
 
-import AdminControlPanelSVG from "@/assets/icons/svg/image.png";
+import AdminControlPanelSVG from "@/assets/images/image.png";
 import { ROUTER } from "@/common/constants/router";
 import { useAuthActions } from "@/common/store/auth";
 
