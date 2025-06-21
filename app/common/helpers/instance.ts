@@ -29,7 +29,8 @@ const getHeaders = (): RawAxiosRequestHeaders => {
 };
 
 const fetcher: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL_FETCH,
+  baseURL:
+    import.meta.env.VITE_BASE_URL_FETCH || "https://api.sarkhanrahimli.dev",
   headers: getHeaders(),
 });
 

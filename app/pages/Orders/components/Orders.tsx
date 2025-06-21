@@ -6,6 +6,7 @@ import type { TableProps } from "antd/es/table";
 
 import OrderDetailsDrawer from "./OrderDetailsDrawer/OrderDetailsDrawer";
 import styles from "./Orders.module.css";
+import OrderStats from "./OrderStats/OrderStats";
 import { useOrderStore } from "../../../common/store/order/order.store";
 
 const { Title } = Typography;
@@ -222,6 +223,8 @@ const Orders: React.FC = () => {
       <div className={styles.header}>
         <Title level={2}>Sifarişlər</Title>
       </div>
+
+      <OrderStats orders={orders} loading={loading} />
 
       {loading ? (
         <div className={styles.loadingContainer}>
