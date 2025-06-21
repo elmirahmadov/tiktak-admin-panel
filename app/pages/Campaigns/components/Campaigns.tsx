@@ -1,23 +1,12 @@
 import ConfirmationModal from "@/common/components/Modals/ConfirmationModal/ConfirmationModal";
 import CreateModal from "@/common/components/Modals/CreateModal/CreateModal";
 import UpdateModal from "@/common/components/Modals/UpdateModal/UpdateModal";
+import { formatDate } from "@/common/helpers/formatDate";
 import { useCampaignActions, useCampaigns } from "@/common/store";
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
-import styles from "./Compaigns.module.css";
 import deleteCompaignPicture from "../../../assets/images/0d698440dfdd3dfe26530636a5db03b51ed51fdd.png";
-
-
-const formatDate = (isoDate: string | null): string => {
-   if (!isoDate) return "Məlumat yoxdur";
-
-   const date = new Date(isoDate);
-   const day = String(date.getDate()).padStart(2, "0");
-   const month = String(date.getMonth() + 1).padStart(2, "0");
-   const year = date.getFullYear();
-
-   return `${day}.${month}.${year}`;
-};
+import styles from "./Compaigns.module.css";
 
 const Compaigns: React.FC = () => {
    const { campaigns, loading } = useCampaigns();
