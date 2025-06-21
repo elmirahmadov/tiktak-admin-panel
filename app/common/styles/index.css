@@ -171,3 +171,38 @@ input[type="password"]:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   background-color: #f5f5fa !important;
 }
+
+html {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+  display: none;
+}
+
+body {
+  overflow-x: hidden;
+  padding-right: 0 !important;
+  width: 100%;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ant-table-body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.ant-table-body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

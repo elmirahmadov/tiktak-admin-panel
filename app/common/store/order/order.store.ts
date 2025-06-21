@@ -44,8 +44,8 @@ export const useOrderStore = create<IOrderStore>((set) => ({
         console.error("Sipariş yükleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Siparişleri Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Siparişleri yüklerken bir hata oluştu"}`,
+          message: "Sifariş Yükləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -69,8 +69,8 @@ export const useOrderStore = create<IOrderStore>((set) => ({
         console.error("Sipariş istatistikleri yükleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "İstatistik Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "İstatistikleri yüklerken bir hata oluştu"}`,
+          message: "İstatistika Yükləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -95,8 +95,8 @@ export const useOrderStore = create<IOrderStore>((set) => ({
         }));
 
         notification.success({
-          message: "Sipariş Durumu Güncellendi",
-          description: "Sipariş durumu başarıyla güncellendi.",
+          message: "Sifariş Statusu Güncəlləndi",
+          description: "Sipariş Statusunu Güncəllədiniz",
           placement: "topRight",
         });
 
@@ -106,8 +106,8 @@ export const useOrderStore = create<IOrderStore>((set) => ({
         console.error("Sipariş durumu güncelleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Sipariş Güncelleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Sipariş durumu güncellenirken bir hata oluştu"}`,
+          message: "Sifariş Güncəlləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
