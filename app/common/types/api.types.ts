@@ -20,9 +20,10 @@ export interface IUser {
 export interface IAuthProfile {
   id: string;
   name: string;
-  role: string;
+  role: string; // role doğrudan burada
   phone?: string;
   email?: string;
+  data: string; // data bir string, obje değil
 }
 
 export interface ILogin {

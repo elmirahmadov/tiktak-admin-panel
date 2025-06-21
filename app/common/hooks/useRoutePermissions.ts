@@ -12,23 +12,17 @@ type RouterItem = {
 type Router = RouterItem[];
 
 const login = lazy(() => import("@/pages/Auth/Login/index"));
-const dashboard = lazy(() => import("@/pages/Dashboard/index"));
 const categories = lazy(() => import("@/pages/Categories/index"));
 const products = lazy(() => import("@/pages/Products/index"));
 const campaigns = lazy(() => import("@/pages/Campaigns/index"));
 const orders = lazy(() => import("@/pages/Orders/index"));
-const profile = lazy(() => import("@/pages/Profile/index"));
+const users = lazy(() => import("@/pages/Users/index"));
 
 const app_router: Router = [
   {
     key: "login",
     pathname: ROUTER.LOGIN,
     element: login,
-  },
-  {
-    key: "dashboard",
-    pathname: ROUTER.DASHBOARD,
-    element: dashboard,
   },
   {
     key: "categories",
@@ -51,9 +45,9 @@ const app_router: Router = [
     element: orders,
   },
   {
-    key: "profile",
-    pathname: ROUTER.PROFILE,
-    element: profile,
+    key: "users",
+    pathname: ROUTER.USERS,
+    element: users,
   },
 ];
 
@@ -93,7 +87,7 @@ export const useRoutePermissions = () => {
   return {
     routes,
     navigate_router: isAuthenticated
-      ? routes?.[0]?.pathname || ROUTER.DASHBOARD
+      ? routes?.[0]?.pathname || ROUTER.CAMPAIGNS
       : ROUTER.LOGIN,
   };
 };
