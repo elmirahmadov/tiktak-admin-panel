@@ -3,7 +3,7 @@ import React from "react";
 import { Card, Descriptions } from "antd";
 
 import styles from "./OrderInfoCard.module.css";
-import { Order } from "../Orders";
+import { Order } from "../../types";
 
 interface OrderInfoCardProps {
   order: Order;

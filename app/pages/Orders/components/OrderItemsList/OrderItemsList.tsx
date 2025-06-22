@@ -4,7 +4,7 @@ import { Card, List } from "antd";
 
 import styles from "./OrderItemsList.module.css";
 import defaultProduct from "../../../../assets/images/defaultProduct.png";
-import { OrderItem } from "../Orders";
+import { OrderItem } from "../../types";
 
 interface OrderItemsListProps {
   items: OrderItem[];
@@ -65,7 +65,7 @@ const OrderItemsList: React.FC<OrderItemsListProps> = ({
                     {parseFloat(item.total_price)?.toFixed(2)} ₼
                   </div>
                   <div className={styles.unitPrice}>
-                    {parseFloat(item.product?.price)?.toFixed(2)} ₼/
+                    {parseFloat(item.product?.price ?? "0").toFixed(2)} ₼/
                     {item.product?.type}
                   </div>
                 </div>

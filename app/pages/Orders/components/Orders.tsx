@@ -174,6 +174,9 @@ const Orders: React.FC = () => {
       width: 120,
       fixed: true,
       sorter: (a, b) => a.orderNumber.localeCompare(b.orderNumber),
+      filterDropdownProps: {
+        placement: "bottomLeft",
+      },
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -183,7 +186,7 @@ const Orders: React.FC = () => {
         <div className={styles.filterDropdown}>
           <input
             placeholder="Sipariş No Ara"
-            value={selectedKeys[0]}
+            value={selectedKeys[0] || ""}
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
@@ -200,7 +203,13 @@ const Orders: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => clearFilters && clearFilters()}
+              onClick={() => {
+                setSelectedKeys([]);
+                if (clearFilters) {
+                  clearFilters();
+                  confirm();
+                }
+              }}
               className={styles.filterButton}
             >
               Temizle
@@ -226,7 +235,9 @@ const Orders: React.FC = () => {
       fixed: true,
       sorter: (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-      defaultSortOrder: "descend",
+      filterDropdownProps: {
+        placement: "bottomLeft",
+      },
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -236,7 +247,7 @@ const Orders: React.FC = () => {
         <div className={styles.filterDropdown}>
           <input
             type="date"
-            value={selectedKeys[0]}
+            value={selectedKeys[0] || ""}
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
@@ -252,7 +263,13 @@ const Orders: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => clearFilters && clearFilters()}
+              onClick={() => {
+                setSelectedKeys([]);
+                if (clearFilters) {
+                  clearFilters();
+                  confirm();
+                }
+              }}
               className={styles.filterButton}
             >
               Temizle
@@ -313,7 +330,7 @@ const Orders: React.FC = () => {
           <input
             type="number"
             placeholder="Minimum Ürün Sayısı"
-            value={selectedKeys[0]}
+            value={selectedKeys[0] || ""}
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
@@ -329,7 +346,13 @@ const Orders: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => clearFilters && clearFilters()}
+              onClick={() => {
+                setSelectedKeys([]);
+                if (clearFilters) {
+                  clearFilters();
+                  confirm();
+                }
+              }}
               className={styles.filterButton}
             >
               Temizle
@@ -387,7 +410,7 @@ const Orders: React.FC = () => {
           <input
             type="number"
             placeholder="Minimum Tutar (₼)"
-            value={selectedKeys[0]}
+            value={selectedKeys[0] || ""}
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
@@ -403,7 +426,13 @@ const Orders: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => clearFilters && clearFilters()}
+              onClick={() => {
+                setSelectedKeys([]);
+                if (clearFilters) {
+                  clearFilters();
+                  confirm();
+                }
+              }}
               className={styles.filterButton}
             >
               Temizle
