@@ -1,9 +1,11 @@
 .sidebar {
   width: 250px;
+  min-width: 250px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   padding: 20px 0;
+  flex-shrink: 0;
 }
 
 .customMenu {
@@ -46,20 +48,151 @@
   color: #92d871 !important;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 1440px) {
   .sidebar {
-    width: 200px;
+    width: 280px;
+    min-width: 280px;
+    border-radius: 12px;
+    padding: 24px 0;
   }
 
   .customMenu :global(.ant-menu-item) {
-    padding: 0 20px !important;
-    height: 42px !important;
-    line-height: 42px !important;
+    padding: 0 36px !important;
+    height: 58px !important;
+    line-height: 58px !important;
+  }
+
+  .customMenu :global(.ant-menu-item:not(:first-child))::before {
+    left: 36px;
+    right: 36px;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1439px) {
+  .sidebar {
+    width: 260px;
+    min-width: 260px;
+  }
+
+  .customMenu :global(.ant-menu-item) {
+    font-size: 14px !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1365px) {
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .customMenu :global(.ant-menu-item) {
+    padding: 0 24px !important;
+    height: 48px !important;
+    line-height: 48px !important;
     font-size: 14px !important;
   }
 
   .customMenu :global(.ant-menu-item:not(:first-child))::before {
-    left: 20px;
-    right: 20px;
+    left: 24px;
+    right: 24px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .sidebar {
+    width: 100%;
+    min-width: auto;
+    order: 1;
+    padding: 12px 0;
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .customMenu {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 0 16px;
+  }
+
+  .customMenu :global(.ant-menu-item) {
+    padding: 0 20px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 100px;
+    text-align: center;
+    margin: 0 4px !important;
+    border-radius: 6px !important;
+  }
+
+  .customMenu :global(.ant-menu-item:not(:first-child))::before {
+    display: none;
+  }
+
+  .customMenu :global(.ant-menu-item-selected) {
+    background-color: rgba(146, 216, 113, 0.1) !important;
+    border-radius: 6px !important;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(146, 216, 113, 0.3);
+    border-radius: 2px;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(146, 216, 113, 0.5);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .customMenu :global(.ant-menu-item) {
+    padding: 0 24px !important;
+    min-width: 120px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .sidebar {
+    padding: 10px 0;
+  }
+
+  .customMenu :global(.ant-menu-item) {
+    padding: 0 16px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    font-size: 12px !important;
+    min-width: 90px;
+  }
+}
+
+@media (max-width: 575px) {
+  .sidebar {
+    padding: 8px 0;
+  }
+
+  .customMenu {
+    padding: 0 8px;
+  }
+
+  .customMenu :global(.ant-menu-item) {
+    padding: 0 12px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    font-size: 11px !important;
+    min-width: 70px;
   }
 }
