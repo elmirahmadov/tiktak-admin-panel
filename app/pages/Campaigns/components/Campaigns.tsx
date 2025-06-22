@@ -1,41 +1,49 @@
+import type { InputRef } from "antd";
+import { Button, Input, Space, Table } from "antd";
+import type { ColumnsType, ColumnType } from "antd/es/table";
+import React, { useEffect, useRef, useState } from "react";
+
 import ConfirmationModal from "@/common/components/Modals/ConfirmationModal/ConfirmationModal";
 import CreateModal from "@/common/components/Modals/CreateModal/CreateModal";
 import UpdateModal from "@/common/components/Modals/UpdateModal/UpdateModal";
+
+import deleteCompaignPicture from "@/assets/images/0d698440dfdd3dfe26530636a5db03b51ed51fdd.png";
 import { formatDate } from "@/common/helpers/formatDate";
 import { useCampaignActions, useCampaigns } from "@/common/store";
-import { Button } from "antd";
-import React, { useEffect, useState } from "react";
-import deleteCompaignPicture from "../../../assets/images/0d698440dfdd3dfe26530636a5db03b51ed51fdd.png";
+
+import { SearchOutlined } from "@ant-design/icons";
 import styles from "./Compaigns.module.css";
+
+interface Campaign {
+   id: number;
+   title: string;
+   description: string;
+   img_url: string;
+   created_at: string;
+}
 
 const Compaigns: React.FC = () => {
    const { campaigns, loading } = useCampaigns();
-   const { getCampaigns, deleteCampaign, createCampaign, updateCampaign } = useCampaignActions();
+   const { getCampaigns, createCampaign, updateCampaign, deleteCampaign } = useCampaignActions();
 
-   // Modalların açılıb bağlanması üçün state-lər
    const [createOpen, setCreateOpen] = useState(false);
    const [updateOpen, setUpdateOpen] = useState(false);
    const [confirmOpen, setConfirmOpen] = useState(false);
+   const [selectedCampaign, setSelectedCampaign] = useState<null | Campaign>(null);
 
-   // Hazırda update və confirm üçün seçilmiş kampaniya
-   const [selectedCampaign, setSelectedCampaign] = useState<null | {
-      id: number;
-      title: string;
-      description: string;
-      img_url: string;
-   }>(null);
+   const [searchText, setSearchText] = useState("");
+   const [searchedColumn, setSearchedColumn] = useState("");
+   const searchInput = useRef<InputRef>(null);
 
    useEffect(() => {
       getCampaigns();
    }, [getCampaigns]);
 
-   // CREATE modal callback
    const handleCreateSubmit = (data: { img_url: string; title: string; description: string }) => {
       createCampaign(data);
       setCreateOpen(false);
    };
 
-   // UPDATE modal callback
    const handleUpdateSubmit = (data: { img_url: string; title: string; description: string }) => {
       if (!selectedCampaign) return;
       updateCampaign(selectedCampaign.id, data);
@@ -43,13 +51,113 @@ const Compaigns: React.FC = () => {
       setSelectedCampaign(null);
    };
 
-   // DELETE confirmation callback
    const handleDeleteConfirm = () => {
       if (!selectedCampaign) return;
       deleteCampaign(selectedCampaign.id);
       setConfirmOpen(false);
       setSelectedCampaign(null);
    };
+
+   const getColumnSearchProps = (dataIndex: keyof Campaign): ColumnType<Campaign> => ({
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+         <div style={{ padding: 8 }}>
+            <Input
+               ref={searchInput}
+               placeholder={`Axtar: ${dataIndex}`}
+               value={selectedKeys[0]}
+               onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+               onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+               style={{ marginBottom: 8, display: "block" }}
+            />
+            <Space>
+               <Button type="primary" onClick={() => handleSearch(selectedKeys, confirm, dataIndex)} size="small">
+                  Axtar
+               </Button>
+               <Button onClick={() => handleReset(clearFilters)} size="small">
+                  Sıfırla
+               </Button>
+            </Space>
+         </div>
+      ),
+      filterIcon: (filtered) => <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />,
+      onFilter: (value, record) =>
+         (record[dataIndex] as string)
+            .toString()
+            .toLowerCase()
+            .includes((value as string).toLowerCase()),
+      onFilterDropdownVisibleChange: (visible) => {
+         if (visible) {
+            setTimeout(() => searchInput.current?.select(), 100);
+         }
+      }
+   });
+
+   const handleSearch = (selectedKeys: React.Key[], confirm: () => void, dataIndex: keyof Campaign) => {
+      confirm();
+      setSearchText(selectedKeys[0] as string);
+      setSearchedColumn(dataIndex);
+   };
+
+   const handleReset = (clearFilters?: () => void) => {
+      clearFilters?.();
+      setSearchText("");
+   };
+
+   const columns: ColumnsType<Campaign> = [
+      {
+         title: "No",
+         dataIndex: "id",
+         sorter: (a, b) => a.id - b.id,
+         width: "5%"
+      },
+      {
+         title: "Başlıq",
+         dataIndex: "title",
+         ...getColumnSearchProps("title"),
+         sorter: (a, b) => a.title.localeCompare(b.title),
+         width: "20%"
+      },
+      {
+         title: "Açıqlama",
+         dataIndex: "description",
+         ...getColumnSearchProps("description"),
+         width: "35%"
+      },
+      {
+         title: "Tarix",
+         dataIndex: "created_at",
+         render: (text) => formatDate(text),
+         sorter: (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+         width: "20%"
+      },
+      {
+         title: "Əməliyyat",
+         dataIndex: "actions",
+         render: (_, record) => (
+            <>
+               <button
+                  className={styles.textButton}
+                  onClick={() => {
+                     setSelectedCampaign(record);
+                     setUpdateOpen(true);
+                  }}
+               >
+                  Düzəlt
+               </button>
+               <button
+                  className={styles.textButton}
+                  onClick={() => {
+                     setSelectedCampaign(record);
+                     setConfirmOpen(true);
+                  }}
+               >
+                  Sil
+               </button>
+            </>
+         ),
+         width: "20%"
+      }
+   ];
 
    return (
       <div className={styles.container}>
@@ -64,68 +172,19 @@ const Compaigns: React.FC = () => {
             </Button>
          </div>
 
-         <table className={styles.table}>
-            <thead>
-               <tr>
-                  <th className={styles.firstTh}>No</th>
-                  <th>Tarix</th>
-                  <th>Açıqlama</th>
-                  <th>Başlıq</th>
-                  <th className={styles.lastTh}></th>
-               </tr>
-            </thead>
-            <tbody>
-               {!loading && campaigns.length > 0 ? (
-                  campaigns.map((item) => (
-                     <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{formatDate(`${item.created_at}`)}</td>
-                        <td>{item.description || "Məlumat yoxdur"}</td>
-                        <td>{item.title || "Məlumat yoxdur"}</td>
-                        <td>
-                           <button
-                              className={styles.textButton}
-                              onClick={() => {
-                                 setSelectedCampaign({
-                                    id: item.id,
-                                    title: item.title || "",
-                                    description: item.description || "",
-                                    img_url: item.img_url || ""
-                                 });
-                                 setUpdateOpen(true);
-                              }}
-                           >
-                              Düzəlt
-                           </button>
-                           <button
-                              className={styles.textButton}
-                              onClick={() => {
-                                 setSelectedCampaign({
-                                    id: item.id,
-                                    title: item.title || "",
-                                    description: item.description || "",
-                                    img_url: item.img_url || ""
-                                 });
-                                 setConfirmOpen(true);
-                              }}
-                           >
-                              Sil
-                           </button>
-                        </td>
-                     </tr>
-                  ))
-               ) : (
-                  <tr>
-                     <td colSpan={5}>Heç bir kampaniya yoxdur.</td>
-                  </tr>
-               )}
-            </tbody>
-         </table>
+         <Table
+            columns={columns}
+            dataSource={campaigns}
+            rowKey="id"
+            loading={loading}
+            pagination={{
+               pageSize: 5,
+               showTotal: (total, range) => `${range[0]}-${range[1]} / ${total} nəticə`
+            }}
+         />
 
-         {/* Create Modal */}
          <CreateModal open={createOpen} onClose={() => setCreateOpen(false)} onSubmit={handleCreateSubmit} />
 
-         {/* Update Modal */}
          {selectedCampaign && (
             <UpdateModal
                open={updateOpen}
@@ -138,7 +197,6 @@ const Compaigns: React.FC = () => {
             />
          )}
 
-         {/* Confirmation Modal */}
          {selectedCampaign && (
             <ConfirmationModal
                open={confirmOpen}
