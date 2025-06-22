@@ -228,4 +228,4 @@ const Categories: React.FC = () => {
    );
 };
 
-export default Categories;
+export default Categories; //son fayllar pull edildi ve en son guncelleme ucun koment elave olundu
