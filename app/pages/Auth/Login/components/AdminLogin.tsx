@@ -36,7 +36,7 @@ const Login: React.FC = () => {
         setLoading(false);
 
         setTimeout(() => {
-          navigate(ROUTER.CAMPAIGNS);
+          navigate(ROUTER.ORDERS);
         });
       },
       (error) => {
