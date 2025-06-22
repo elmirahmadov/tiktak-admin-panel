@@ -66,9 +66,65 @@ const Orders: React.FC = () => {
     try {
       await actions.updateOrderStatus(selectedOrder.id, { status: newStatus });
       setSelectedOrder({ ...selectedOrder, status: newStatus });
+      actions.getOrders();
     } catch (error) {
       console.error("Status güncelleme hatası:", error);
     }
+  };
+
+  const formatDate = (dateString: string): string => {
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return "Geçersiz tarih";
+      }
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+
+      return `${day}-${month}`;
+    } catch (error) {
+      console.error("Tarih formatlanma hatası:", error);
+      return "Tarih hatası";
+    }
+  };
+
+  const formatFullDate = (dateString: string): string => {
+    try {
+      const date = new Date(dateString);
+
+      if (isNaN(date.getTime())) {
+        return "Geçersiz tarih";
+      }
+
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const year = date.getFullYear();
+      const hours = date.getHours().toString().padStart(2, "0");
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+
+      return `${day}/${month}/${year} ${hours}:${minutes}`;
+    } catch (error) {
+      console.error("Tarih formatlanma hatası:", error);
+      return "Tarih hatası";
+    }
+  };
+
+  const getUniqueStatuses = () => {
+    const statuses = [...new Set(orders.map((order) => order.status))];
+    return statuses.map((status) => ({
+      text: getStatusText(status),
+      value: status,
+    }));
+  };
+
+  const getUniqueAddresses = () => {
+    const addresses = [
+      ...new Set(orders.map((order) => order.address).filter(Boolean)),
+    ];
+    return addresses.slice(0, 10).map((address) => ({
+      text: address.length > 30 ? address.substring(0, 30) + "..." : address,
+      value: address,
+    }));
   };
 
   const getStatusColor = (status: string) => {
@@ -114,33 +170,118 @@ const Orders: React.FC = () => {
       title: "No",
       dataIndex: "orderNumber",
       key: "orderNumber",
-      render: (text) => <span className={styles.tableText}>{text}</span>,
-      width: 160,
+      render: (text) => <span className={styles.tableText2}>{text}</span>,
+      width: 120,
+      fixed: true,
+      sorter: (a, b) => a.orderNumber.localeCompare(b.orderNumber),
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
+      }) => (
+        <div className={styles.filterDropdown}>
+          <input
+            placeholder="Sipariş No Ara"
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => confirm()}
+            className={styles.filterInput}
+          />
+          <div className={styles.filterButtons}>
+            <button
+              type="button"
+              onClick={() => confirm()}
+              className={`${styles.filterButton} ${styles.filterButtonPrimary}`}
+            >
+              Ara
+            </button>
+            <button
+              type="button"
+              onClick={() => clearFilters && clearFilters()}
+              className={styles.filterButton}
+            >
+              Temizle
+            </button>
+          </div>
+        </div>
+      ),
+      onFilter: (value, record) =>
+        record.orderNumber
+          .toLowerCase()
+          .includes(value.toString().toLowerCase()),
     },
     {
       title: "Tarix",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (text) => {
-        const date = new Date(text);
-        return (
-          <span className={styles.tableText}>
-            {date.toLocaleDateString("az-AZ")}
-          </span>
-        );
+      render: (text) => (
+        <span className={styles.tableText2} title={formatFullDate(text)}>
+          {formatDate(text)}
+        </span>
+      ),
+      width: 100,
+      fixed: true,
+      sorter: (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      defaultSortOrder: "descend",
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
+      }) => (
+        <div className={styles.filterDropdown}>
+          <input
+            type="date"
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            className={styles.filterInput}
+          />
+          <div className={styles.filterButtons}>
+            <button
+              type="button"
+              onClick={() => confirm()}
+              className={`${styles.filterButton} ${styles.filterButtonPrimary}`}
+            >
+              Filtrele
+            </button>
+            <button
+              type="button"
+              onClick={() => clearFilters && clearFilters()}
+              className={styles.filterButton}
+            >
+              Temizle
+            </button>
+          </div>
+        </div>
+      ),
+      onFilter: (value, record) => {
+        if (!value) return true;
+        const recordDate = new Date(record.createdAt)
+          .toISOString()
+          .split("T")[0];
+        return recordDate === value;
       },
-      width: 120,
     },
     {
       title: <span className={styles.tableHeaderText}>Çatdırılma ünvanı</span>,
       dataIndex: "address",
       key: "address",
       render: (text) => (
-        <span className={styles.addressText}>
+        <span className={styles.addressText} title={text}>
           {text || "Ünvan göstərilməyib"}
         </span>
       ),
-      width: 160,
+      width: 200,
+      sorter: (a, b) => (a.address || "").localeCompare(b.address || ""),
+      filters: getUniqueAddresses(),
+      onFilter: (value, record) => record.address === value,
+      filterSearch: true,
     },
     {
       title: <span className={styles.tableHeaderText}>Məhsul sayı</span>,
@@ -153,8 +294,56 @@ const Orders: React.FC = () => {
           ) || 0;
         return <span className={styles.tableText}>{totalCount}</span>;
       },
-      width: 120,
+      width: 140,
       align: "center",
+      sorter: (a, b) => {
+        const countA =
+          a.items?.reduce((sum, item) => sum + (item.quantity || 0), 0) || 0;
+        const countB =
+          b.items?.reduce((sum, item) => sum + (item.quantity || 0), 0) || 0;
+        return countA - countB;
+      },
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
+      }) => (
+        <div className={styles.filterDropdown}>
+          <input
+            type="number"
+            placeholder="Minimum Ürün Sayısı"
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            className={styles.filterInput}
+          />
+          <div className={styles.filterButtons}>
+            <button
+              type="button"
+              onClick={() => confirm()}
+              className={`${styles.filterButton} ${styles.filterButtonPrimary}`}
+            >
+              Filtrele
+            </button>
+            <button
+              type="button"
+              onClick={() => clearFilters && clearFilters()}
+              className={styles.filterButton}
+            >
+              Temizle
+            </button>
+          </div>
+        </div>
+      ),
+      onFilter: (value, record) => {
+        if (!value) return true;
+        const totalCount =
+          record.items?.reduce((sum, item) => sum + (item.quantity || 0), 0) ||
+          0;
+        return totalCount >= parseInt(value.toString());
+      },
     },
     {
       title: (
@@ -179,8 +368,56 @@ const Orders: React.FC = () => {
           </div>
         );
       },
-      width: 160,
+      width: 180,
       align: "right",
+      sorter: (a, b) => {
+        const totalA =
+          (parseFloat(a.total) || 0) + (parseFloat(a.deliveryFee) || 0);
+        const totalB =
+          (parseFloat(b.total) || 0) + (parseFloat(b.deliveryFee) || 0);
+        return totalA - totalB;
+      },
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
+      }) => (
+        <div className={styles.filterDropdown}>
+          <input
+            type="number"
+            placeholder="Minimum Tutar (₼)"
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            className={styles.filterInput}
+          />
+          <div className={styles.filterButtons}>
+            <button
+              type="button"
+              onClick={() => confirm()}
+              className={`${styles.filterButton} ${styles.filterButtonPrimary}`}
+            >
+              Filtrele
+            </button>
+            <button
+              type="button"
+              onClick={() => clearFilters && clearFilters()}
+              className={styles.filterButton}
+            >
+              Temizle
+            </button>
+          </div>
+        </div>
+      ),
+      onFilter: (value, record) => {
+        if (!value) return true;
+        const total =
+          (parseFloat(record.total) || 0) +
+          (parseFloat(record.deliveryFee) || 0);
+        return total >= parseFloat(value.toString());
+      },
     },
     {
       title: "Status",
@@ -198,6 +435,9 @@ const Orders: React.FC = () => {
       },
       width: 120,
       align: "center",
+      filters: getUniqueStatuses(),
+      onFilter: (value, record) => record.status === value,
+      sorter: (a, b) => a.status.localeCompare(b.status),
     },
     {
       title: "",
@@ -213,7 +453,7 @@ const Orders: React.FC = () => {
         </Button>
       ),
       width: 120,
-      align: "right",
+      align: "center",
       fixed: "right",
     },
   ];
@@ -231,17 +471,21 @@ const Orders: React.FC = () => {
           <Spin size="large" />
         </div>
       ) : (
-        <Table<Order>
-          columns={columns}
-          dataSource={orders}
-          rowKey="id"
-          pagination={{
-            pageSize: 5,
-            showTotal: (total, range) =>
-              `${range[0]}-${range[1]} / ${total} nəticə`,
-          }}
-          className={styles.ordersTable}
-        />
+        <div className={styles.tableWrapper}>
+          <Table<Order>
+            columns={columns}
+            dataSource={orders}
+            rowKey="id"
+            pagination={{
+              pageSize: 5,
+              showTotal: (total, range) =>
+                `${range[0]}-${range[1]} / ${total} nəticə`,
+            }}
+            className={styles.ordersTable}
+            size="middle"
+            bordered={false}
+          />
+        </div>
       )}
 
       <OrderDetailsDrawer
