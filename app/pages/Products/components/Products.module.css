@@ -51,14 +51,12 @@
   background: transparent !important;
 }
 
-/* Thead başlıqlarındakı aradakı xətləri tam sil */
 .customTable :global(.ant-table-thead > tr > th) {
 border-right: none !important;
 border-left: none !important;
 border-inline-end: none !important;
 box-shadow: none !important;
 }
-
 
 .customTable th,
 .customTable td {
