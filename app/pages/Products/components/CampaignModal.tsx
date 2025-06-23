@@ -1,5 +1,3 @@
-// Products/components/CampaignModal.tsx
-
 import React from "react";
 import { Modal, Input, Button } from "antd";
 

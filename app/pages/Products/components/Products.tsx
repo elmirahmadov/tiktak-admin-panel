@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Button, Table, Typography, Space } from "antd";
 import styles from "./Products.module.css";
 import CampaignModal from "./CampaignModal";
-import DeleteModal from "./DeleteModal"; // <-- yeni modal
+import DeleteModal from "./DeleteModal"; 
 
 const { Title } = Typography;
 
 const Products = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // düzəlt və əlavə et üçün
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // sil modalı üçün
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); 
 
   const columns = [
     {
@@ -107,15 +107,13 @@ const Products = () => {
         />
       </div>
 
-      {/* Əlavə et / Düzəlt modalı */}
       <CampaignModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      {/* Sil təsdiqləmə modalı */}
       <DeleteModal
         open={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={() => {
-          console.log("Silinmə təsdiqləndi"); // Əsl silmə funksiyası burada olacaq
+          console.log("Silinmə təsdiqləndi"); 
           setIsDeleteModalOpen(false);
         }}
       />
