@@ -1,40 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table, Typography, Space } from "antd";
 import styles from "./Products.module.css";
 import CampaignModal from "./CampaignModal";
-import DeleteModal from "./DeleteModal"; 
+import DeleteModal from "./DeleteModal";
+import { useProductStore } from "../../../common/store/product/product.store";
 
 const { Title } = Typography;
 
 const Products = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const { products, loading, actions } = useProductStore();
+
+  useEffect(() => {
+    actions.getProducts();
+  }, []);
+
+  console.log("Products:", products);
 
   const columns = [
     {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: "Tarix",
-      dataIndex: "tarix",
-      key: "tarix",
+      title: "Ad",
+      dataIndex: "title",
+      key: "title",
     },
     {
       title: "Açıqlama",
-      dataIndex: "aciqlama",
-      key: "aciqlama",
+      dataIndex: "description",
+      key: "description",
     },
     {
-      title: "Başlıq",
-      dataIndex: "basliq",
-      key: "basliq",
+      title: "Şəkil",
+      dataIndex: "img_url",
+      key: "img_url",
+      render: (url) => (
+        <img
+          src={url || "https://via.placeholder.com/50?text=No+Image"}
+          alt="şəkil"
+          style={{ width: 50, height: 50, objectFit: "cover" }}
+        />
+      ),
     },
     {
-      title: "",
+      title: "Qiymət",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "Kateqoriya",
+      dataIndex: ["category", "name"],
+      key: "category",
+    },
+    {
+      title: "Yaradılma Tarixi",
+      dataIndex: "created_at",
+      key: "created_at",
+      render: (date) => new Date(date).toLocaleDateString(),
+    },
+    {
+      title: "Növ",
+      dataIndex: "type",
+      key: "type",
+    },
+    {
+      title: "Əməliyyatlar",
       key: "action",
-      render: () => (
+      render: (_, record) => (
         <Space>
           <span
             className={styles.actionLink}
@@ -50,30 +87,6 @@ const Products = () => {
           </span>
         </Space>
       ),
-    },
-  ];
-
-  const data = [
-    {
-      key: "1",
-      no: "#321321",
-      tarix: "10.05.2025",
-      aciqlama: "Alis verisde yeni addim",
-      basliq: "Tiktak yenilik",
-    },
-    {
-      key: "2",
-      no: "#321321",
-      tarix: "10.05.2025",
-      aciqlama: "Alis verisde yeni addim",
-      basliq: "Tiktak yenilik",
-    },
-    {
-      key: "3",
-      no: "#321321",
-      tarix: "10.05.2025",
-      aciqlama: "Alis verisde yeni addim",
-      basliq: "Tiktak yenilik",
     },
   ];
 
@@ -102,7 +115,9 @@ const Products = () => {
         <Table
           className={styles.customTable}
           columns={columns}
-          dataSource={data}
+          dataSource={products}
+          loading={loading}
+          rowKey="id"
           pagination={false}
         />
       </div>
@@ -113,7 +128,7 @@ const Products = () => {
         open={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={() => {
-          console.log("Silinmə təsdiqləndi"); 
+          console.log("Silinmə təsdiqləndi");
           setIsDeleteModalOpen(false);
         }}
       />

@@ -13,15 +13,14 @@
   margin-bottom: 20px;
 }
 
-.productsHeader h2{
+.productsHeader h2 {
   font-size: 18px;
   font-weight: 400;
-  color: #2B3043;
-
+  color: #2b3043;
 }
 
 .addButton {
-  background-color: #92D871;
+  background-color: #92d871;
   border: none;
   font-weight: bold;
   border-radius: 10px;
@@ -40,8 +39,8 @@
 }
 
 .customTable thead th {
-  background-color: #F6F5FB;
-  color: #2B3043;
+  background-color: #f6f5fb;
+  color: #2b3043;
   font-weight: 400;
   font-size: 16px;
   padding: 20px;
@@ -52,23 +51,23 @@
 }
 
 .customTable :global(.ant-table-thead > tr > th) {
-border-right: none !important;
-border-left: none !important;
-border-inline-end: none !important;
-box-shadow: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-inline-end: none !important;
+  box-shadow: none !important;
 }
 
 .customTable th,
 .customTable td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #F6F5FB;
+  border-bottom: 1px solid #f6f5fb;
 }
 
-.customTable td{
+.customTable td {
   font-size: 16px;
   font-weight: 300;
-  color: #2B3043;
+  color: #2b3043;
   padding: 20px;
 }
 
