@@ -76,16 +76,10 @@ const Products = () => {
       key: "action",
       render: (_, record) => (
         <Space>
-          <span
-            className={styles.actionLink}
-            onClick={() => setIsModalOpen(true)}
-          >
+          <span className={styles.actionLink} onClick={() => setIsModalOpen(true)}>
             düzəlt
           </span>
-          <span
-            className={styles.actionLink}
-            onClick={() => setIsDeleteModalOpen(true)}
-          >
+          <span className={styles.actionLink} onClick={() => setIsDeleteModalOpen(true)}>
             sil
           </span>
         </Space>
