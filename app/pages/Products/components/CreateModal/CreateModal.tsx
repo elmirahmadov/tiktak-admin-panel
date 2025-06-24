@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Modal, Input, Button } from "antd";
 
 interface CampaignModalProps {
@@ -8,12 +9,7 @@ interface CampaignModalProps {
 
 const CampaignModal: React.FC<CampaignModalProps> = ({ open, onClose }) => {
   return (
-    <Modal
-      open={open}
-      onCancel={onClose}
-      footer={null}
-      centered
-    >
+    <Modal open={open} onCancel={onClose} footer={null} centered>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <label>Şəkil Ünvanı</label>
         <Input />

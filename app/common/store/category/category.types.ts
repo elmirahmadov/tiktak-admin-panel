@@ -11,6 +11,11 @@ export interface ICategoryStoreActions {
     cb?: (data: ICategory[]) => void,
     errCb?: (err: any) => void
   ) => Promise<ICategory[] | null>;
+  getCategory: (
+    id: number | string,
+    cb?: (data: ICategory) => void,
+    errCb?: (err: any) => void
+  ) => Promise<ICategory | null>;
   createCategory: (
     data: ICategoryCreate,
     cb?: (data: ICategory) => void,

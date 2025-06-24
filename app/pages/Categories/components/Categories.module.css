@@ -1,7 +1,6 @@
-.container {
-  padding: 24px;
-  background-color: #fff;
-  border-radius: 8px;
+.categoriesContainer {
+  background: #ffffff;
+  padding: 0;
 }
 
 .header {
@@ -9,66 +8,410 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 16px;
 }
 
-.table {
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.pageTitle {
+  margin: 0 !important;
+  color: #333;
+  font-weight: 600;
+  font-size: clamp(16px, 3vw, 24px);
+}
+
+.createButton {
+  background: #52c41a !important;
+  border-color: #52c41a !important;
+  font-weight: 500;
+  height: clamp(32px, 5vw, 40px);
+  padding: 0 clamp(12px, 2vw, 20px);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(82, 196, 26, 0.2);
+  transition: all 0.3s ease;
+  font-size: clamp(11px, 2vw, 14px);
+}
+
+.createButton:hover {
+  background: #73d13d !important;
+  border-color: #73d13d !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(82, 196, 26, 0.3);
+}
+
+.createButton:focus {
+  background: #52c41a !important;
+  border-color: #52c41a !important;
+}
+
+.tableWrapper {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
   width: 100%;
-  border-collapse: collapse;
 }
 
-.table thead {
-  display: block;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  padding: 10px 8px;
-}
-
-.table thead tr {
-  display: table;
+.categoriesTable {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
   width: 100%;
   table-layout: fixed;
 }
 
-.table thead th {
-  padding: 12px;
-  text-align: left;
-  background-color: transparent;
-  border-radius: 0;
-  padding: 10px 8px;
-}
-
-.table tbody {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-.table tbody td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  background-color: transparent;
-}
-
-.textButton {
-  background: none;
+.categoriesTable :global(.ant-table-container) {
+  border-radius: 8px;
   border: none;
-  color: black;
-  cursor: pointer;
-  margin-right: 8px;
-  padding: 0;
-  font-size: 14px;
 }
 
-.image {
-  width: 60px;
-  height: auto;
+.categoriesTable :global(.ant-table-content) {
+  border-radius: 8px;
+}
+
+.categoriesTable :global(.ant-table) {
+  border: none;
+}
+
+.categoriesTable :global(.ant-table-thead > tr > th) {
+  background: #fafafa;
+  border-bottom: 2px solid #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  font-weight: 600;
+  color: #333;
+  padding: clamp(8px, 1.5vw, 16px) clamp(4px, 1vw, 12px);
+  font-size: clamp(9px, 1.8vw, 13px);
+  vertical-align: middle;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.categoriesTable :global(.ant-table-tbody > tr > td) {
+  border-bottom: 1px solid #f5f5f5;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  padding: clamp(8px, 1.5vw, 16px) clamp(4px, 1vw, 12px);
+  font-size: clamp(9px, 1.8vw, 13px);
+  vertical-align: middle;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.categoriesTable :global(.ant-table-tbody > tr:hover > td) {
+  background: #f8f9fa;
+}
+
+.categoriesTable :global(.ant-table-pagination) {
+  margin: 16px 0 0 0;
+  padding: 16px;
+}
+
+.tableText {
+  font-size: clamp(9px, 1.8vw, 12px);
+  color: #333;
+  font-weight: 500;
+}
+
+.tableHeaderText {
+  font-size: clamp(9px, 1.8vw, 12px);
+  font-weight: 600;
+  color: #333;
+}
+
+.categoryName {
+  font-size: clamp(10px, 2vw, 13px);
+  color: #333;
+  font-weight: 600;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.descriptionText {
+  font-size: clamp(9px, 1.8vw, 12px);
+  color: #666;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.categoryImage {
+  border-radius: 6px !important;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+  width: clamp(30px, 5vw, 50px) !important;
+  height: clamp(30px, 5vw, 50px) !important;
   object-fit: cover;
+  cursor: pointer;
+}
+
+.categoryImage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.previewMask {
+  font-size: clamp(8px, 1.5vw, 11px);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 8px;
   border-radius: 4px;
 }
 
-.pagination {
+.manualPreview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.previewOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.previewImage {
+  max-width: 90%;
+  max-height: 90%;
+  z-index: 1001;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  object-fit: contain;
+}
+
+.actionButton {
+  font-size: clamp(8px, 1.5vw, 11px);
+  padding: clamp(2px, 0.5vw, 4px) clamp(4px, 1vw, 8px);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  height: clamp(20px, 3vw, 28px);
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(2px, 0.5vw, 4px);
+}
+
+.actionButton:hover {
+  background: #e6f7ff;
+  color: #0050b3;
+  border-color: #91d5ff;
+}
+
+.actionButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.deleteButton {
+  color: #ff4d4f;
+}
+
+.deleteButton:hover {
+  background: #fff2f0;
+  color: #cf1322;
+  border-color: #ffccc7;
+}
+
+.deleteButton:focus {
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+}
+
+.filterDropdown {
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  min-width: 220px;
+}
+
+.filterInput {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.filterInput:focus {
+  outline: none;
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.filterButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.filterButton {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #333;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+  border-color: #1890ff;
+  color: #1890ff;
+}
+
+.filterButtonPrimary {
+  background: #1890ff;
+  color: #ffffff;
+  border-color: #1890ff;
+}
+
+.filterButtonPrimary:hover {
+  background: #0050b3;
+  border-color: #0050b3;
+}
+
+.categoriesTable :global(.ant-table-filter-trigger) {
+  color: #bfbfbf;
+  font-size: 12px;
+  transition: color 0.3s ease;
+}
+
+.categoriesTable :global(.ant-table-filter-trigger:hover) {
+  color: #1890ff;
+}
+
+.categoriesTable :global(.ant-table-filter-trigger.ant-table-filter-open) {
+  color: #1890ff;
+}
+
+.categoriesTable :global(.ant-table-column-sorter) {
+  color: #bfbfbf;
+  transition: color 0.3s ease;
+}
+
+.categoriesTable :global(.ant-table-column-sorter:hover) {
+  color: #1890ff;
+}
+
+.categoriesTable :global(.ant-table-column-sorter-up.active),
+.categoriesTable :global(.ant-table-column-sorter-down.active) {
+  color: #1890ff;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .createButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .categoriesContainer {
+    padding: 0;
+  }
+
+  .header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .filterDropdown {
+    min-width: 180px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterDropdown {
+    min-width: 150px;
+    padding: 6px;
+  }
+}
+
+.categoriesTable :global(.ant-empty) {
+  padding: 40px 20px;
+}
+
+.categoriesTable :global(.ant-empty-description) {
+  color: #999;
+  font-size: 14px;
+}
+
+.categoriesTable :global(.ant-table-body) {
+  scrollbar-width: thin;
+  scrollbar-color: #d9d9d9 transparent;
+}
+
+.categoriesTable :global(.ant-table-body::-webkit-scrollbar) {
+  height: 6px;
+  width: 6px;
+}
+
+.categoriesTable :global(.ant-table-body::-webkit-scrollbar-track) {
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+
+.categoriesTable :global(.ant-table-body::-webkit-scrollbar-thumb) {
+  background-color: #d9d9d9;
+  border-radius: 3px;
+}
+
+.categoriesTable :global(.ant-table-body::-webkit-scrollbar-thumb:hover) {
+  background-color: #bfbfbf;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.categoriesTable :global(.ant-table-container) {
+  border-radius: 8px;
+}
+
+.categoriesTable :global(.ant-table-content) {
+  border-radius: 8px;
 }

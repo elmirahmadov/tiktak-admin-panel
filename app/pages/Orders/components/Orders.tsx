@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import { EyeOutlined } from "@ant-design/icons";
-import { Button, Spin, Table, Tag, Typography } from "antd";
+import { Button, Table, Tag, Typography } from "antd";
 import type { TableProps } from "antd/es/table";
 
 import OrderDetailsDrawer from "./OrderDetailsDrawer/OrderDetailsDrawer";
 import styles from "./Orders.module.css";
 import OrderStats from "./OrderStats/OrderStats";
 import { useOrderStore } from "../../../common/store/order/order.store";
+
+import { Loading } from "@/common/components/Loading";
 
 const { Title } = Typography;
 
@@ -497,7 +499,7 @@ const Orders: React.FC = () => {
 
       {loading ? (
         <div className={styles.loadingContainer}>
-          <Spin size="large" />
+          <Loading />
         </div>
       ) : (
         <div className={styles.tableWrapper}>

@@ -23,7 +23,7 @@ const initial: Omit<ICategoryStore, "actions"> = {
   currentCategory: null,
 };
 
-export const useCategoryStore = create<ICategoryStore>((set) => ({
+export const useCategoryStore = create<ICategoryStore>((set, get) => ({
   ...initial,
   actions: {
     setLoading: (loading) => set({ loading }),
@@ -55,14 +55,37 @@ export const useCategoryStore = create<ICategoryStore>((set) => ({
       }
     },
 
+    getCategory: async (id, cb, errCb) => {
+      try {
+        const currentCategory = get().categories.find(
+          (c) => c.id === (typeof id === "string" ? parseInt(id) : id)
+        );
+
+        if (currentCategory) {
+          set({ currentCategory });
+          cb?.(currentCategory);
+          return currentCategory;
+        }
+
+        throw new Error("Kategori bulunamadı");
+      } catch (err) {
+        console.error("Kategori getirme hatası:", err);
+        errCb?.(err);
+        return null;
+      }
+    },
+
     createCategory: async (data, cb, errCb) => {
       set({ loading: true });
 
       try {
         const response = await createCategory(data);
 
+        console.log("API'den dönen create response:", response);
+
         set((state) => ({
-          categories: [...state.categories, response],
+          // YENİ KATEGORI'Yİ EN BAŞA EKLE
+          categories: [response, ...state.categories],
           currentCategory: response,
           loading: false,
         }));
@@ -97,15 +120,50 @@ export const useCategoryStore = create<ICategoryStore>((set) => ({
       try {
         const response = await updateCategory(id, data);
 
-        set((state) => ({
-          categories: state.categories.map((cat) =>
-            cat.id === (typeof id === "string" ? parseInt(id) : id)
-              ? response
-              : cat
-          ),
-          currentCategory: response,
-          loading: false,
-        }));
+        console.log("API'den dönen update response:", response);
+
+        set((state) => {
+          const targetId = typeof id === "string" ? parseInt(id) : id;
+          const originalCategories = [...state.categories];
+          const targetIndex = originalCategories.findIndex(
+            (cat) => cat.id === targetId
+          );
+
+          console.log("Update işlemi:", {
+            targetId,
+            targetIndex,
+            originalItem: originalCategories[targetIndex],
+            response,
+          });
+
+          if (targetIndex === -1) {
+            console.error(
+              "Güncellenmek istenen kategori bulunamadı:",
+              targetId
+            );
+            return { ...state, loading: false };
+          }
+
+          // MEVCUT ITEM'IN TÜM BİLGİLERİNİ KORU, SADECE GELENLERİ GÜNCELLE
+          const originalItem = originalCategories[targetIndex];
+          const updatedItem = {
+            ...originalItem, // Önce orijinal item'ın tüm bilgileri
+            ...response, // Sonra API'den gelen güncel bilgiler
+            created_at: originalItem.created_at, // Ama oluşturulma tarihini koru
+            id: originalItem.id, // ID'yi de koru
+          };
+
+          console.log("Final updated item:", updatedItem);
+
+          // AYNI POZİSYONDA GÜNCELLE
+          originalCategories[targetIndex] = updatedItem;
+
+          return {
+            categories: originalCategories,
+            currentCategory: updatedItem,
+            loading: false,
+          };
+        });
 
         notification.success({
           message: "Kategori Güncellendi",
