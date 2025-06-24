@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Table, Typography, Space } from "antd";
 
-import CampaignModal from "./CreateModal/CreateModal";
+import CreateProductsModal from "./CreateProductsModal/CreateProductsModal";
 import styles from "./Products.module.css";
 import { useProductStore } from "../../../common/store/product/product.store";
 
@@ -125,7 +125,10 @@ const Products = () => {
         />
       </div>
 
-      <CampaignModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <CreateProductsModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
 
       <DeleteModal
         open={isDeleteModalOpen}

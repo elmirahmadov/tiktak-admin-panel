@@ -6,7 +6,10 @@ interface CreateProductsModal {
   onClose: () => void;
 }
 
-const CampaignModal: React.FC<CreateProductsModal> = ({ open, onClose }) => {
+const CreateProductsModal: React.FC<CreateProductsModal> = ({
+  open,
+  onClose,
+}) => {
   return (
     <Modal open={open} onCancel={onClose} footer={null} centered>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
