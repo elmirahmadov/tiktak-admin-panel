@@ -433,7 +433,7 @@ const Products: React.FC = () => {
         width: "11%",
       },
       {
-        title: <span className={styles.tableHeaderText}></span>,
+        title: <span className={styles.tableHeaderText}>Əməliyyat</span>,
         key: "actions",
         render: (_, record) => (
           <Space size="small">
