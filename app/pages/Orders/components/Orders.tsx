@@ -471,7 +471,7 @@ const Orders: React.FC = () => {
       sorter: (a, b) => a.status.localeCompare(b.status),
     },
     {
-      title: "",
+      title: "Əməliyyat",
       key: "actions",
       render: (_, record) => (
         <Button
