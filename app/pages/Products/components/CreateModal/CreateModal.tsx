@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Input, Button, Select, notification } from "antd";
-import { useProductStore } from "../../../common/store/product/product.store";
-
-const { TextArea } = Input;
+import React from "react";
+import { Modal, Input, Button } from "antd";
 
 interface CampaignModalProps {
   open: boolean;
@@ -16,9 +13,9 @@ const CampaignModal: React.FC<CampaignModalProps> = ({ open, onClose }) => {
     title: "",
     description: "",
     price: "",
-    type: "ədəd", 
+    type: "ədəd",
     img_url: "",
-    category_id: 1, 
+    category_id: 1,
   });
 
   const handleChange = (field: string, value: any) => {
@@ -46,22 +43,38 @@ const CampaignModal: React.FC<CampaignModalProps> = ({ open, onClose }) => {
     <Modal open={open} onCancel={onClose} footer={null} centered>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <label>Başlıq</label>
-        <Input value={form.title} onChange={(e) => handleChange("title", e.target.value)} />
+        <Input
+          value={form.title}
+          onChange={(e) => handleChange("title", e.target.value)}
+        />
 
         <label>Açıqlama</label>
-        <TextArea rows={3} value={form.description} onChange={(e) => handleChange("description", e.target.value)} />
+        <TextArea
+          rows={3}
+          value={form.description}
+          onChange={(e) => handleChange("description", e.target.value)}
+        />
 
         <label>Qiymət</label>
-        <Input value={form.price} onChange={(e) => handleChange("price", e.target.value)} />
+        <Input
+          value={form.price}
+          onChange={(e) => handleChange("price", e.target.value)}
+        />
 
         <label>Ölçü tipi</label>
-        <Select value={form.type} onChange={(value) => handleChange("type", value)}>
+        <Select
+          value={form.type}
+          onChange={(value) => handleChange("type", value)}
+        >
           <Select.Option value="adet">Ədəd</Select.Option>
           <Select.Option value="litre">Litre</Select.Option>
         </Select>
 
         <label>Şəkil URL</label>
-        <Input value={form.img_url} onChange={(e) => handleChange("img_url", e.target.value)} />
+        <Input
+          value={form.img_url}
+          onChange={(e) => handleChange("img_url", e.target.value)}
+        />
 
         <label>Kateqoriya ID</label>
         <Input
@@ -73,7 +86,11 @@ const CampaignModal: React.FC<CampaignModalProps> = ({ open, onClose }) => {
         <Button
           type="primary"
           block
-          style={{ marginTop: "1rem", backgroundColor: "#7ED957", border: "none" }}
+          style={{
+            marginTop: "1rem",
+            backgroundColor: "#7ED957",
+            border: "none",
+          }}
           onClick={handleCreate}
         >
           Məlumatları yarat

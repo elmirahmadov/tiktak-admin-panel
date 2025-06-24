@@ -156,3 +156,17 @@ export interface IOrderStatusUpdate {
   status: string;
   notes?: string;
 }
+
+// ======== Upload Types ========//
+
+export interface IUploadResponse {
+  id: string;
+  fileName: string;
+  originalName: string;
+  mimeType: string;
+  size: number;
+  url: string;
+  publicUrl?: string;
+  uploadedAt: string;
+  path?: string;
+}

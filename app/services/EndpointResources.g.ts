@@ -32,4 +32,7 @@ export const API = {
     updateStatus: (id: number | string) =>
       `/api/tiktak/orders/admin/${id}/status`,
   },
+  upload: {
+    upload: "/api/tiktak/upload",
+  },
 };

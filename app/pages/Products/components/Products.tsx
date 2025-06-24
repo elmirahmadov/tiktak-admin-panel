@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+
 import { Button, Table, Typography, Space } from "antd";
+
+import CampaignModal from "./CreateModal/CreateModal";
 import styles from "./Products.module.css";
-import CampaignModal from "./CampaignModal";
-import DeleteModal from "./DeleteModal";
 import { useProductStore } from "../../../common/store/product/product.store";
+
+import DeleteModal from "@/common/components/DeleteModals/DeleteModal";
 
 const { Title } = Typography;
 
@@ -120,9 +123,8 @@ const Products = () => {
 
       <DeleteModal
         open={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
+        onCancel={() => setIsDeleteModalOpen(false)}
         onConfirm={() => {
-          console.log("Silinmə təsdiqləndi");
           setIsDeleteModalOpen(false);
         }}
       />
