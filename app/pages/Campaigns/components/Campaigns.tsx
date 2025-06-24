@@ -396,7 +396,7 @@ const Campaigns: React.FC = () => {
         width: "15%",
       },
       {
-        title: <span className={styles.tableHeaderText}>Əməliyyat</span>,
+        title: <span className={styles.tableHeaderText}></span>,
         key: "actions",
         render: (_, record) => (
           <Space size="small">
