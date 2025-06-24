@@ -1,0 +1,44 @@
+.uploadContainer :global(.ant-upload) {
+  width: 100% !important;
+  display: block !important;
+}
+
+.uploadContainer :global(.ant-upload .ant-input) {
+  width: 100% !important;
+}
+
+.uploadInput {
+  cursor: pointer !important;
+  width: 100% !important;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #7ed957;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.submitButton {
+  margin-top: 16px !important;
+  background-color: #7ed957 !important;
+  border-color: #7ed957 !important;
+  height: 42px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+.uploadIcon {
+  color: #7ed957;
+}

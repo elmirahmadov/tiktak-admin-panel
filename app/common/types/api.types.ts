@@ -89,14 +89,14 @@ export interface ICategoryUpdate {
 export enum ProductMeasure {
   KG = "kg",
   GR = "gr",
-  LITRE = "litre",
+  LITRE = "litr",
   ML = "ml",
-  METER = "meter",
+  METER = "metr",
   CM = "cm",
   MM = "mm",
-  PIECE = "piece",
-  PACKET = "packet",
-  BOX = "box",
+  PIECE = "əd",
+  PACKET = "paket",
+  BOX = "qutu",
 }
 
 export interface IProduct {
