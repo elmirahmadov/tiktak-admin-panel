@@ -32,13 +32,11 @@ const CreateModal: React.FC<Props> = ({
   const { actions } = useUploadStore();
 
   const handleImageUpload = async (file: File) => {
-    // Dosya boyutu kontrolü (5MB)
     if (file.size > 5 * 1024 * 1024) {
       message.error("Dosya boyutu 5MB'dan büyük olamaz!");
       return false;
     }
 
-    // Dosya türü kontrolü
     if (!file.type.startsWith("image/")) {
       message.error("Sadece resim dosyaları yükleyebilirsiniz!");
       return false;
@@ -79,7 +77,6 @@ const CreateModal: React.FC<Props> = ({
 
     onSubmit({ img_url, title, description });
 
-    // Form'u temizle
     setImgUrl("");
     setTitle("");
     setDescription("");
@@ -88,7 +85,6 @@ const CreateModal: React.FC<Props> = ({
   };
 
   const handleCancel = () => {
-    // Form'u temizle
     setImgUrl("");
     setTitle("");
     setDescription("");
