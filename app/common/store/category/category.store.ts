@@ -84,7 +84,6 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         console.log("API'den dönen create response:", response);
 
         set((state) => ({
-          // YENİ KATEGORI'Yİ EN BAŞA EKLE
           categories: [response, ...state.categories],
           currentCategory: response,
           loading: false,
@@ -144,18 +143,16 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
             return { ...state, loading: false };
           }
 
-          // MEVCUT ITEM'IN TÜM BİLGİLERİNİ KORU, SADECE GELENLERİ GÜNCELLE
           const originalItem = originalCategories[targetIndex];
           const updatedItem = {
-            ...originalItem, // Önce orijinal item'ın tüm bilgileri
-            ...response, // Sonra API'den gelen güncel bilgiler
-            created_at: originalItem.created_at, // Ama oluşturulma tarihini koru
-            id: originalItem.id, // ID'yi de koru
+            ...originalItem,
+            ...response,
+            created_at: originalItem.created_at,
+            id: originalItem.id,
           };
 
           console.log("Final updated item:", updatedItem);
 
-          // AYNI POZİSYONDA GÜNCELLE
           originalCategories[targetIndex] = updatedItem;
 
           return {
