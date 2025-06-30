@@ -118,3 +118,4 @@ export const useOrderStore = create<IOrderStore>((set) => ({
     },
   },
 }));
+
