@@ -242,6 +242,8 @@ const Users: React.FC = () => {
       if (filterVisible) {
          setTimeout(() => inputRef.current?.focus(), 150);
       }
+
+		console.log()
    }, [filterVisible]);
 
    return (
@@ -280,15 +282,6 @@ const Users: React.FC = () => {
                allowClear
                onPressEnter={() => setFilterVisible(false)}
                style={{ flex: 1 }}
-            />
-            <Button
-               type="text"
-               icon={<SearchOutlined style={{ fontSize: 18 }} />}
-               onClick={() => {
-                  /* Opsiyonel: Enter tuşuna basmayla aynı işlemi yapabiliriz */
-                  setFilterVisible(false);
-               }}
-               title="Axtar"
             />
             <Button
                type="text"
