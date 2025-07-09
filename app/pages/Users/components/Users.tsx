@@ -7,8 +7,18 @@ import {
   PhoneOutlined,
   ShopOutlined,
   UserOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Modal, Table, Tag, Tooltip, Typography } from "antd";
+import {
+  Avatar,
+  Button,
+  Input,
+  Modal,
+  Table,
+  Tag,
+  Tooltip,
+  Typography,
+} from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 import styles from "./Users.module.css";
@@ -118,10 +128,14 @@ const Users: React.FC = () => {
       ...new Set(users.map((user) => user.address).filter(Boolean)),
     ];
     return addresses.slice(0, 10).map((address) => ({
-      text: address.length > 30 ? address.substring(0, 30) + "..." : address,
+      text:
+        typeof address === "string" && address.length > 30
+          ? address.substring(0, 30) + "..."
+          : address,
       value: address,
     }));
   };
+
   const getUniqueRoles = () => {
     const roles = [...new Set(users.map((user) => user.role))];
     return roles.map((role) => ({
@@ -189,7 +203,7 @@ const Users: React.FC = () => {
           clearFilters,
         }) => (
           <div className={styles.filterDropdown}>
-            <input
+            <Input
               placeholder="Ad Soyad axtar"
               value={selectedKeys[0]?.toString() || ""}
               onChange={(e) =>
@@ -250,7 +264,7 @@ const Users: React.FC = () => {
           clearFilters,
         }) => (
           <div className={styles.filterDropdown}>
-            <input
+            <Input
               placeholder="Telefon axtar"
               value={selectedKeys[0]?.toString() || ""}
               onChange={(e) =>
@@ -371,7 +385,7 @@ const Users: React.FC = () => {
         <div className={styles.tableWrapper}>
           <Table<IUser>
             columns={columns}
-            dataSource={users as readonly IUser[]}
+            dataSource={[...users]}
             rowKey="id"
             pagination={{
               current: currentPage,
@@ -391,92 +405,101 @@ const Users: React.FC = () => {
       )}
 
       <Modal
-        title={
-          <div className={styles.modalHeader}>
-            <UserOutlined style={{ marginRight: 8, color: "#1890ff" }} />
-            İstifadəçi Detayları
-          </div>
-        }
+        title={null}
         open={modalVisible}
         onCancel={handleCloseModal}
-        footer={[
-          <Button
-            key="close"
-            onClick={handleCloseModal}
-            className={styles.modalCloseButton}
-          >
-            Bağla
-          </Button>,
-        ]}
-        width={500}
+        footer={null}
+        width={480}
         className={styles.userModal}
         maskClosable={true}
         centered
+        closeIcon={<CloseOutlined className={styles.modalCloseIcon} />}
       >
         {selectedUser && (
           <div className={styles.modalContent}>
-            <div className={styles.userInfo}>
+            <div className={styles.modalHeader}>
+              <div className={styles.modalHeaderContent}>
+                <UserOutlined className={styles.modalHeaderIcon} />
+                <span>İstifadəçi Detayları</span>
+              </div>
+            </div>
+
+            <div className={styles.userProfile}>
               <div className={styles.avatarSection}>
                 {selectedUser.img_url ? (
-                  <Avatar size={80} src={selectedUser.img_url} />
+                  <Avatar
+                    size={90}
+                    src={selectedUser.img_url}
+                    className={styles.profileAvatar}
+                  />
                 ) : (
-                  <Avatar size={80} style={{ backgroundColor: "#1890ff" }}>
+                  <Avatar size={90} className={styles.profileAvatar}>
                     {selectedUser.full_name?.[0]?.toUpperCase() || (
                       <UserOutlined />
                     )}
                   </Avatar>
                 )}
+                <div className={styles.userFullName}>
+                  {selectedUser.full_name}
+                </div>
+                <Tag
+                  color={roleTagProps(selectedUser.role).color}
+                  className={styles.profileRoleTag}
+                  style={{
+                    color:
+                      roleTagProps(selectedUser.role).textColor || undefined,
+                    border:
+                      selectedUser.role?.toUpperCase() === "COMMERCE"
+                        ? "1px solid #91d5ff"
+                        : undefined,
+                  }}
+                >
+                  {roleTagProps(selectedUser.role).icon}
+                  <span style={{ marginLeft: 5 }}>
+                    {selectedUser.role?.toUpperCase()}
+                  </span>
+                </Tag>
               </div>
-              <div className={styles.infoSection}>
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>
-                    <UserOutlined /> Ad Soyad:
-                  </span>
-                  <span className={styles.infoValue}>
-                    {selectedUser.full_name}
-                  </span>
-                </div>
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>
-                    <PhoneOutlined /> Telefon:
-                  </span>
-                  <span className={styles.infoValue}>{selectedUser.phone}</span>
-                </div>
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>
-                    <EnvironmentOutlined /> Ünvan:
-                  </span>
-                  <span className={styles.infoValue}>
-                    {selectedUser.address || "Ünvan yoxdur"}
-                  </span>
-                </div>
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>
-                    {roleTagProps(selectedUser.role).icon} Rol:
-                  </span>
-                  <Tag
-                    color={roleTagProps(selectedUser.role).color}
-                    className={styles.modalRoleTag}
-                    style={{
-                      color:
-                        roleTagProps(selectedUser.role).textColor || undefined,
-                      border:
-                        selectedUser.role?.toUpperCase() === "COMMERCE"
-                          ? "1px solid #91d5ff"
-                          : undefined,
-                    }}
-                  >
-                    {roleTagProps(selectedUser.role).icon}
-                    <span style={{ marginLeft: 5 }}>
-                      {selectedUser.role?.toUpperCase()}
-                    </span>
-                  </Tag>
-                </div>
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>📅 Yaradılma tarixi:</span>
-                  <span className={styles.infoValue}>
-                    {formatAzeriDate(selectedUser.created_at)}
-                  </span>
+
+              <div className={styles.userDetails}>
+                <div className={styles.infoCard}>
+                  <div className={styles.infoItem}>
+                    <div className={styles.infoIcon}>
+                      <PhoneOutlined />
+                    </div>
+                    <div className={styles.infoContent}>
+                      <div className={styles.infoLabel}>Telefon</div>
+                      <div className={styles.infoValue}>
+                        {selectedUser.phone}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <div className={styles.infoIcon}>
+                      <EnvironmentOutlined />
+                    </div>
+                    <div className={styles.infoContent}>
+                      <div className={styles.infoLabel}>Ünvan</div>
+                      <div className={styles.infoValue}>
+                        {selectedUser.address || "Ünvan yoxdur"}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.infoItem}>
+                    <div className={styles.infoIcon}>
+                      <span role="img" aria-label="calendar">
+                        📅
+                      </span>
+                    </div>
+                    <div className={styles.infoContent}>
+                      <div className={styles.infoLabel}>Yaradılma tarixi</div>
+                      <div className={styles.infoValue}>
+                        {formatAzeriDate(selectedUser.created_at)}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
