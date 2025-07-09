@@ -2,7 +2,6 @@ export const API = {
   auth: {
     login: "/api/tiktak/auth/admin/login",
     refresh: "/api/tiktak/auth/refresh",
-    logout: "/api/tiktak/auth/admin/logout",
   },
   admin: {
     profile: "/api/tiktak/admin/profile",
@@ -31,6 +30,9 @@ export const API = {
     getStats: "/api/tiktak/orders/admin/stats",
     updateStatus: (id: number | string) =>
       `/api/tiktak/orders/admin/${id}/status`,
+  },
+  users: {
+    getAll: "/api/tiktak/admin/users",
   },
   upload: {
     upload: "/api/tiktak/upload",
