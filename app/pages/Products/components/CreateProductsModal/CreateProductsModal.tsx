@@ -192,7 +192,7 @@ const CreateProductsModal: React.FC<ICreateProductsModalProps> = ({
       open={open}
       onCancel={handleClose}
       footer={null}
-      width="85%"
+      width="50%"
       className={styles.modalContainer}
       bodyStyle={{
         maxHeight: "75vh",
