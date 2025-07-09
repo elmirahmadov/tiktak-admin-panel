@@ -129,16 +129,13 @@ const CreateProductsModal: React.FC<ICreateProductsModalProps> = ({
           (uploadResponse) => {
             setImgUrl(uploadResponse.url);
             setFileName(file.name);
-            message.success("Şəkil uğurla yükləndi!");
           },
           (error) => {
             console.error("Upload hatası:", error);
-            message.error("Şəkil yüklənərkən xəta baş verdi!");
           }
         );
       } catch (error) {
         console.error("Upload hatası:", error);
-        message.error("Şəkil yüklənərkən xəta baş verdi!");
       } finally {
         setUploading(false);
       }
