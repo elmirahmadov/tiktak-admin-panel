@@ -27,6 +27,46 @@ import { useProductStore } from "@/common/store/product/product.store";
 
 const { Title } = Typography;
 
+const PRODUCT_TYPES = [
+  { value: "kg", label: "Kiloqram (kg)" },
+  { value: "gr", label: "Qram (gr)" },
+  { value: "litre", label: "Litr" },
+  { value: "ml", label: "Millilitr (ml)" },
+  { value: "meter", label: "Metr" },
+  { value: "cm", label: "Santimetr (cm)" },
+  { value: "mm", label: "Millimetr (mm)" },
+  { value: "piece", label: "Ədəd" },
+  { value: "packet", label: "Paket" },
+  { value: "box", label: "Qutu" },
+];
+
+const translateProductType = (type: string): string => {
+  if (!type) return "Növ yoxdur";
+
+  const exactMatch = PRODUCT_TYPES.find(
+    (productType) => productType.value.toLowerCase() === type.toLowerCase()
+  );
+
+  if (exactMatch) {
+    return exactMatch.label;
+  }
+
+  for (const productType of PRODUCT_TYPES) {
+    if (type.toLowerCase().includes(productType.value.toLowerCase())) {
+      const regex = new RegExp(`(\\d+)\\s*${productType.value}`, "i");
+      const match = type.match(regex);
+
+      if (match && match[1]) {
+        return `${match[1]} ${productType.label}`;
+      } else {
+        return productType.label;
+      }
+    }
+  }
+
+  return type;
+};
+
 interface Product {
   id: number;
   title: string;
@@ -401,11 +441,14 @@ const Products: React.FC = () => {
         dataIndex: "type",
         key: "type",
         ...getColumnSearchProps("type"),
-        render: (text) => (
-          <span className={styles.typeText} title={text}>
-            {text || "Növ yoxdur"}
-          </span>
-        ),
+        render: (text) => {
+          const translatedType = translateProductType(text);
+          return (
+            <span className={styles.typeText} title={translatedType}>
+              {translatedType}
+            </span>
+          );
+        },
         width: "10%",
       },
       {
