@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Input, Modal, Upload, message } from "antd";
+import { Button, Input, Modal, Upload } from "antd";
 
 import styles from "./UpdateModal.module.css";
 import { useUploadStore } from "../../../../common/store/upload/upload.store";
@@ -24,7 +24,6 @@ const UpdateModal: React.FC<Props> = ({ open, onClose, data, onSubmit }) => {
   const [fileName, setFileName] = useState("");
   const [existingImageValid, setExistingImageValid] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [newImageUploaded, setNewImageUploaded] = useState(false);
 
   const { actions } = useUploadStore();
 
@@ -41,7 +40,6 @@ const UpdateModal: React.FC<Props> = ({ open, onClose, data, onSubmit }) => {
     setImgUrl(data.img_url || "");
     setTitle(data.title || "");
     setDescription(data.description || "");
-    setNewImageUploaded(false);
 
     const isValid = isValidImageUrl(data.img_url);
     setExistingImageValid(isValid);
@@ -61,25 +59,22 @@ const UpdateModal: React.FC<Props> = ({ open, onClose, data, onSubmit }) => {
 
   const handleImageUpload = async (file: File) => {
     if (file.size > 5 * 1024 * 1024) {
-      message.error("Dosya boyutu 5MB'dan büyük olamaz!");
       return false;
     }
 
     if (!file.type.startsWith("image/")) {
-      message.error("Sadece resim dosyaları yükleyebilirsiniz!");
       return false;
     }
 
     setUploading(true);
 
     try {
-      const response = await actions.uploadFile(
+      await actions.uploadFile(
         file,
         (uploadResponse) => {
           setImgUrl(uploadResponse.url);
           setFileName(file.name);
           setExistingImageValid(true);
-          setNewImageUploaded(true);
         },
         (error) => {
           console.error("Upload hatası:", error);
@@ -96,12 +91,10 @@ const UpdateModal: React.FC<Props> = ({ open, onClose, data, onSubmit }) => {
 
   const handleSubmit = () => {
     if (!img_url.trim()) {
-      message.error("Lütfen bir resim yükleyin!");
       return;
     }
 
     if (!title.trim()) {
-      message.error("Başlık boş olamaz!");
       return;
     }
 

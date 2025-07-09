@@ -1,24 +1,17 @@
-.container {
-  padding: 24px;
+.usersContainer {
   background: #ffffff;
-  min-height: 100vh;
-  font-family: 'Roboto', sans-serif;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 24px;
   border-bottom: 1px solid #f0f0f0;
   padding-bottom: 16px;
 }
 
-.pageTitle {
+.header h2 {
   margin: 0;
   color: #333;
   font-weight: 600;
-  font-size: clamp(16px, 3vw, 24px);
 }
 
 .loadingContainer {
@@ -36,10 +29,11 @@
 }
 
 .usersTable {
-  width: 100%;
-  table-layout: fixed;
   background: #ffffff;
   border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  table-layout: auto;
 }
 
 .usersTable :global(.ant-table-thead > tr > th) {
@@ -47,28 +41,309 @@
   border-bottom: 2px solid #f0f0f0;
   font-weight: 600;
   color: #333;
-  padding: clamp(8px, 1.5vw, 16px);
-  font-size: clamp(9px, 1.8vw, 13px);
-  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: clamp(12px, 1vw, 16px) clamp(8px, 0.8vw, 12px);
+  font-size: clamp(10px, 1.2vw, 12px);
+  vertical-align: middle;
 }
 
 .usersTable :global(.ant-table-tbody > tr > td) {
   border-bottom: 1px solid #f5f5f5;
-  padding: clamp(8px, 1.5vw, 16px);
-  font-size: clamp(9px, 1.8vw, 12px);
-  color: #333;
-  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: clamp(12px, 1vw, 16px) clamp(8px, 0.8vw, 12px);
+  font-size: clamp(10px, 1.2vw, 12px);
+  vertical-align: middle;
 }
 
 .usersTable :global(.ant-table-tbody > tr:hover > td) {
   background: #f8f9fa;
 }
 
-.addressEmpty {
-  color: #fa541c;
+.tableText {
+  font-size: 12px;
+  color: #333;
+}
+
+.tableHeaderText {
+  font-size: 12px;
+  white-space: nowrap;
   font-weight: 600;
 }
 
+.userName {
+  font-size: 12px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 140px;
+}
+
+.addressText {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 140px;
+  color: #333;
+}
+
+.addressEmpty {
+  color: #999;
+  font-size: 12px;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userAvatar {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.userAvatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .roleTag {
-  font-weight: 600;
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.modalRoleTag {
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.detailButton {
+  font-size: 12px;
+  color: #1890ff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.detailButton:hover {
+  background: #e6f7ff;
+  color: #0050b3;
+}
+
+.detailButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.filterDropdown {
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  min-width: 220px;
+}
+
+.filterInput {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.filterInput:focus {
+  outline: none;
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.filterButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.filterButton {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #333;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+  border-color: #1890ff;
+  color: #1890ff;
+}
+
+.filterButtonPrimary {
+  background: #1890ff;
+  color: #ffffff;
+  border-color: #1890ff;
+}
+
+.filterButtonPrimary:hover {
+  background: #0050b3;
+  border-color: #0050b3;
+}
+
+.usersTable :global(.ant-table-filter-trigger) {
+  color: #bfbfbf;
+  font-size: 12px;
+  transition: color 0.3s ease;
+}
+
+.usersTable :global(.ant-table-filter-trigger:hover) {
+  color: #1890ff;
+}
+
+.usersTable :global(.ant-table-filter-trigger.ant-table-filter-open) {
+  color: #1890ff;
+}
+
+.usersTable :global(.ant-table-column-sorter) {
+  color: #bfbfbf;
+  transition: color 0.3s ease;
+}
+
+.usersTable :global(.ant-table-column-sorter:hover) {
+  color: #1890ff;
+}
+
+.usersTable :global(.ant-table-column-sorter-up.active),
+.usersTable :global(.ant-table-column-sorter-down.active) {
+  color: #1890ff;
+}
+
+.userModal :global(.ant-modal-content) {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.userModal :global(.ant-modal-header) {
+  background: #fafafa;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.userModal :global(.ant-modal-body) {
+  padding: 24px;
+}
+
+.userModal :global(.ant-modal-footer) {
+  border-top: 1px solid #f0f0f0;
+  padding: 12px 24px;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.modalCloseButton {
+  border-radius: 4px;
+  background: #f5f5f5;
+  border: none;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.modalCloseButton:hover {
+  background: #e8e8e8;
+  color: #1890ff;
+}
+
+.modalContent {
+  padding: 0;
+}
+
+.userInfo {
+  display: flex;
+  gap: 24px;
+}
+
+.avatarSection {
+  flex-shrink: 0;
+}
+
+.avatarSection :global(.ant-avatar) {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #fff;
+}
+
+.infoSection {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #f0f0f0;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+}
+
+.infoLabel {
+  min-width: 120px;
+  font-weight: 500;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.infoValue {
+  color: #333;
+  font-weight: normal;
+}
+
+@media (max-width: 768px) {
+  .userInfo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .infoRow {
+    justify-content: center;
+  }
 }

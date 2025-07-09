@@ -188,19 +188,5 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
         });
       }
     },
-
-    logout: (cb) => {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("refresh_token");
-
-      set({
-        ...initial,
-        accessToken: null,
-        refreshToken: null,
-        isAuthenticated: false,
-      });
-
-      cb?.();
-    },
   },
 }));
