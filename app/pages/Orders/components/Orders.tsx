@@ -47,6 +47,7 @@ const Orders: React.FC = () => {
   const { orders, loading, actions } = useOrderStore();
   const [detailsVisible, setDetailsVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     actions.getOrders();
@@ -508,9 +509,12 @@ const Orders: React.FC = () => {
             dataSource={orders}
             rowKey="id"
             pagination={{
+              current: currentPage,
               pageSize: 5,
               showTotal: (total, range) =>
                 `${range[0]}-${range[1]} / ${total} nəticə`,
+              onChange: (page) => setCurrentPage(page),
+              onShowSizeChange: (page) => setCurrentPage(page),
             }}
             className={styles.ordersTable}
             size="middle"
