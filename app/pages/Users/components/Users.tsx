@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import {
+  CloseOutlined,
   CrownOutlined,
   EnvironmentOutlined,
   EyeOutlined,
   PhoneOutlined,
   ShopOutlined,
   UserOutlined,
-  CloseOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -25,18 +25,15 @@ import styles from "./Users.module.css";
 
 import { Loading } from "@/common/components/Loading";
 import { useUserActions, useUsers } from "@/common/store/user";
+import { IUser as GlobalIUser } from "@/common/types/api.types";
 
 const { Title } = Typography;
 
-export interface IUser {
-  id: string;
-  full_name: string;
-  phone: string;
+export interface IUser extends GlobalIUser {
+  full_name?: string;
+  phone?: string;
   address?: string;
-  role: string;
-  created_at: string;
   img_url?: string;
-  email?: string;
 }
 
 interface RoleTagProps {
@@ -53,9 +50,9 @@ const roleTagProps = (role: string): RoleTagProps => {
   if (upper === "COMMERCE")
     return {
       role,
-      color: "#e6f7ff",
-      textColor: "#1890ff",
-      icon: <ShopOutlined style={{ color: "#1890ff" }} />,
+      color: "#52c41a",
+      textColor: "#52c41a",
+      icon: <ShopOutlined style={{ color: "#52c41a" }} />,
     };
   return { role, color: "default", icon: <UserOutlined /> };
 };
@@ -125,15 +122,22 @@ const Users: React.FC = () => {
 
   const getUniqueAddresses = () => {
     const addresses = [
-      ...new Set(users.map((user) => user.address).filter(Boolean)),
+      ...new Set(
+        users
+          .map((user) => ("address" in user ? user.address : undefined))
+          .filter(Boolean)
+      ),
     ];
-    return addresses.slice(0, 10).map((address) => ({
-      text:
-        typeof address === "string" && address.length > 30
-          ? address.substring(0, 30) + "..."
-          : address,
-      value: address,
-    }));
+    return addresses.slice(0, 10).map((address) => {
+      const strAddress = String(address);
+      return {
+        text:
+          strAddress.length > 30
+            ? strAddress.substring(0, 30) + "..."
+            : strAddress,
+        value: strAddress,
+      };
+    });
   };
 
   const getUniqueRoles = () => {
@@ -160,24 +164,30 @@ const Users: React.FC = () => {
         title: <span className={styles.tableHeaderText}>Avatar</span>,
         dataIndex: "img_url",
         key: "avatar",
-        render: (img, record) => (
-          <div className={styles.imageContainer}>
-            {img ? (
-              <Avatar
-                src={img}
-                alt={record.full_name}
-                className={styles.userAvatar}
-              />
-            ) : (
-              <Avatar
-                style={{ backgroundColor: "#1890ff" }}
-                className={styles.userAvatar}
-              >
-                {record.full_name?.[0]?.toUpperCase() || <UserOutlined />}
-              </Avatar>
-            )}
-          </div>
-        ),
+        render: (img, record) => {
+          const fullName = record.full_name ?? "";
+          return (
+            <div className={styles.imageContainer}>
+              {img ? (
+                <Avatar
+                  src={img}
+                  alt={fullName}
+                  className={styles.userAvatar}
+                />
+              ) : (
+                <Avatar
+                  className={`${styles.userAvatar} ${styles.greenAvatar}`}
+                >
+                  {fullName.charAt(0) ? (
+                    fullName.charAt(0).toUpperCase()
+                  ) : (
+                    <UserOutlined />
+                  )}
+                </Avatar>
+              )}
+            </div>
+          );
+        },
         align: "center",
         width: "12%",
       },
@@ -187,10 +197,10 @@ const Users: React.FC = () => {
         key: "full_name",
         align: "center",
         width: "25%",
-        sorter: (a, b) => a.full_name.localeCompare(b.full_name),
+        sorter: (a, b) => (a.full_name ?? "").localeCompare(b.full_name ?? ""),
         render: (text) => (
-          <span className={styles.userName} title={text}>
-            {text}
+          <span className={styles.userName} title={text ?? ""}>
+            {text ?? ""}
           </span>
         ),
         filterDropdownProps: {
@@ -237,7 +247,7 @@ const Users: React.FC = () => {
           </div>
         ),
         onFilter: (value, record) =>
-          record.full_name
+          (record.full_name ?? "")
             .toLowerCase()
             .includes(value.toString().toLowerCase()),
       },
@@ -247,10 +257,10 @@ const Users: React.FC = () => {
         key: "phone",
         align: "center",
         width: "20%",
-        sorter: (a, b) => a.phone.localeCompare(b.phone),
+        sorter: (a, b) => (a.phone ?? "").localeCompare(b.phone ?? ""),
         render: (text) => (
           <span className={styles.tableText}>
-            <PhoneOutlined style={{ color: "#1890ff", marginRight: 6 }} />
+            <PhoneOutlined className={styles.phoneIcon} />
             {text}
           </span>
         ),
@@ -298,7 +308,9 @@ const Users: React.FC = () => {
           </div>
         ),
         onFilter: (value, record) =>
-          record.phone.toLowerCase().includes(value.toString().toLowerCase()),
+          (record.phone ?? "")
+            .toLowerCase()
+            .includes(value.toString().toLowerCase()),
       },
       {
         title: <span className={styles.tableHeaderText}>Ünvan</span>,
@@ -309,9 +321,7 @@ const Users: React.FC = () => {
         render: (addr) =>
           addr ? (
             <span className={styles.addressText}>
-              <EnvironmentOutlined
-                style={{ color: "#52c41a", marginRight: 6 }}
-              />
+              <EnvironmentOutlined className={styles.addressIcon} />
               {addr}
             </span>
           ) : (
@@ -329,20 +339,22 @@ const Users: React.FC = () => {
         key: "role",
         render: (role) => {
           const props = roleTagProps(role);
+          if (role?.toUpperCase() === "ADMIN") {
+            return (
+              <Tag color={props.color} className={styles.roleTag}>
+                {props.icon}
+                <span className={styles.roleText}>{role?.toUpperCase()}</span>
+              </Tag>
+            );
+          }
           return (
-            <Tag
-              color={props.color}
-              className={styles.roleTag}
-              style={{
-                color: props.textColor || undefined,
-                border:
-                  role?.toUpperCase() === "COMMERCE"
-                    ? "1px solid #91d5ff"
-                    : undefined,
-              }}
-            >
-              {props.icon}
-              <span style={{ marginLeft: 5 }}>{role?.toUpperCase()}</span>
+            <Tag className={`${styles.roleTag} ${styles.greenRoleTag}`}>
+              {role?.toUpperCase() === "COMMERCE" ? (
+                <ShopOutlined className={styles.commerceIcon} />
+              ) : (
+                <UserOutlined />
+              )}
+              <span className={styles.roleText}>{role?.toUpperCase()}</span>
             </Tag>
           );
         },
@@ -361,7 +373,7 @@ const Users: React.FC = () => {
             onClick={() => handleViewDetails(record)}
             className={styles.detailButton}
           >
-            Detay
+            Göstər
           </Button>
         ),
         align: "center",
@@ -385,7 +397,7 @@ const Users: React.FC = () => {
         <div className={styles.tableWrapper}>
           <Table<IUser>
             columns={columns}
-            dataSource={[...users]}
+            dataSource={users}
             rowKey="id"
             pagination={{
               current: currentPage,
@@ -433,7 +445,10 @@ const Users: React.FC = () => {
                     className={styles.profileAvatar}
                   />
                 ) : (
-                  <Avatar size={90} className={styles.profileAvatar}>
+                  <Avatar
+                    size={90}
+                    className={`${styles.profileAvatar} ${styles.greenAvatar}`}
+                  >
                     {selectedUser.full_name?.[0]?.toUpperCase() || (
                       <UserOutlined />
                     )}
@@ -442,23 +457,30 @@ const Users: React.FC = () => {
                 <div className={styles.userFullName}>
                   {selectedUser.full_name}
                 </div>
-                <Tag
-                  color={roleTagProps(selectedUser.role).color}
-                  className={styles.profileRoleTag}
-                  style={{
-                    color:
-                      roleTagProps(selectedUser.role).textColor || undefined,
-                    border:
-                      selectedUser.role?.toUpperCase() === "COMMERCE"
-                        ? "1px solid #91d5ff"
-                        : undefined,
-                  }}
-                >
-                  {roleTagProps(selectedUser.role).icon}
-                  <span style={{ marginLeft: 5 }}>
-                    {selectedUser.role?.toUpperCase()}
-                  </span>
-                </Tag>
+                {selectedUser.role?.toUpperCase() === "ADMIN" ? (
+                  <Tag
+                    color={roleTagProps(selectedUser.role).color}
+                    className={styles.profileRoleTag}
+                  >
+                    {roleTagProps(selectedUser.role).icon}
+                    <span className={styles.roleText}>
+                      {selectedUser.role?.toUpperCase()}
+                    </span>
+                  </Tag>
+                ) : (
+                  <Tag
+                    className={`${styles.profileRoleTag} ${styles.greenRoleTag}`}
+                  >
+                    {selectedUser.role?.toUpperCase() === "COMMERCE" ? (
+                      <ShopOutlined className={styles.commerceIcon} />
+                    ) : (
+                      <UserOutlined />
+                    )}
+                    <span className={styles.roleText}>
+                      {selectedUser.role?.toUpperCase()}
+                    </span>
+                  </Tag>
+                )}
               </div>
 
               <div className={styles.userDetails}>

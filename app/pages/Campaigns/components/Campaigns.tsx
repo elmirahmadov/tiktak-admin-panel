@@ -116,25 +116,19 @@ const Campaigns: React.FC = () => {
   );
 
   const handleUpdateSubmit = useCallback(
-    (data: UpdateCampaignData) => {
+    async (data: UpdateCampaignData) => {
       if (!selectedCampaign) return;
 
-      console.log("Update edilen kampanya:", selectedCampaign);
-      console.log("Yeni data:", data);
-      console.log(
-        "Mevcut pozisyon:",
-        campaigns.findIndex((c) => c.id === selectedCampaign.id)
-      );
-
-      updateCampaign(selectedCampaign.id, {
+      await updateCampaign(selectedCampaign.id, {
         title: data.title,
         description: data.description,
         img_url: data.img_url,
       });
+      getCampaigns();
       setUpdateOpen(false);
       setSelectedCampaign(null);
     },
-    [selectedCampaign, updateCampaign, campaigns]
+    [selectedCampaign, updateCampaign, getCampaigns]
   );
 
   const handleDeleteConfirm = useCallback(() => {

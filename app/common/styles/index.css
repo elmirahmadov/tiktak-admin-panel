@@ -206,3 +206,9 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+.ant-pagination-item-active a,
+.ant-pagination-item-active {
+  color: #52c41a !important;
+  border-color: #52c41a !important;
+}

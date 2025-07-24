@@ -125,7 +125,21 @@
   font-weight: 500;
   display: inline-flex;
   align-items: center;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: none;
+}
+
+.greenRoleTag {
+  background: transparent;
+  border: 1px solid #52c41a;
+  color: #52c41a;
+}
+
+.roleText {
+  margin-left: 5px;
+}
+
+.commerceIcon {
+  color: #52c41a !important;
 }
 
 .modalRoleTag {
@@ -140,20 +154,20 @@
 
 .detailButton {
   font-size: 12px;
-  color: #1890ff;
+  color: #333;
   padding: 4px 8px;
   border-radius: 4px;
   transition: all 0.2s ease;
 }
 
 .detailButton:hover {
-  background: #e6f7ff;
-  color: #0050b3;
+  background: #f5f5f5;
+  color: #222;
 }
 
 .detailButton:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.15);
 }
 
 .filterDropdown {
@@ -176,8 +190,8 @@
 
 .filterInput:focus {
   outline: none;
-  border-color: #1890ff;
-  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  border-color: #52c41a;
+  box-shadow: 0 0 0 2px rgba(82, 196, 26, 0.2);
 }
 
 .filterButtons {
@@ -200,19 +214,19 @@
 }
 
 .filterButton:hover {
-  border-color: #1890ff;
-  color: #1890ff;
+  border-color: #52c41a;
+  color: #52c41a;
 }
 
 .filterButtonPrimary {
-  background: #1890ff;
+  background: #52c41a;
   color: #ffffff;
-  border-color: #1890ff;
+  border-color: #52c41a;
 }
 
 .filterButtonPrimary:hover {
-  background: #0050b3;
-  border-color: #0050b3;
+  background: #388e3c;
+  border-color: #388e3c;
 }
 
 .usersTable :global(.ant-table-filter-trigger) {
@@ -222,11 +236,11 @@
 }
 
 .usersTable :global(.ant-table-filter-trigger:hover) {
-  color: #1890ff;
+  color: #bfbfbf;
 }
 
 .usersTable :global(.ant-table-filter-trigger.ant-table-filter-open) {
-  color: #1890ff;
+  color: #bfbfbf;
 }
 
 .usersTable :global(.ant-table-column-sorter) {
@@ -235,12 +249,12 @@
 }
 
 .usersTable :global(.ant-table-column-sorter:hover) {
-  color: #1890ff;
+  color: #bfbfbf;
 }
 
 .usersTable :global(.ant-table-column-sorter-up.active),
 .usersTable :global(.ant-table-column-sorter-down.active) {
-  color: #1890ff;
+  color: #bfbfbf;
 }
 
 .userModal :global(.ant-modal-content) {
@@ -280,7 +294,7 @@
 }
 
 .modalHeader {
-  background: linear-gradient(135deg, #3f87ff 0%, #0052cc 100%);
+  background: linear-gradient(135deg, #52c41a 0%, #388e3c 100%);
   padding: 22px 24px;
   border-radius: 16px 16px 0 0;
   position: relative;
@@ -347,7 +361,7 @@
 }
 
 .profileAvatar {
-  background-color: #1890ff;
+  background-color: #52c41a;
   border: 5px solid white;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   margin-bottom: 16px;
@@ -369,7 +383,10 @@
   font-size: 14px;
   font-weight: 500;
   border-radius: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background: transparent;
+  border: 1px solid #52c41a;
+  color: #52c41a;
+  box-shadow: none;
 }
 
 .userDetails {
@@ -406,14 +423,14 @@
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 16px;
-  color: #1890ff;
+  color: #bfbfbf;
   font-size: 18px;
-  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(191, 191, 191, 0.1);
 }
 
 .infoContent {
@@ -433,6 +450,20 @@
   color: #262626;
   font-weight: 500;
   line-height: 1.4;
+}
+
+.greenAvatar {
+  background-color: #52c41a !important;
+}
+
+.phoneIcon {
+  color: #333 !important;
+  margin-right: 6px;
+}
+
+.addressIcon {
+  color: #52c41a !important;
+  margin-right: 6px;
 }
 
 @media (max-width: 576px) {

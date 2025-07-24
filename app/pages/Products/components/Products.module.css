@@ -150,13 +150,11 @@
 
 .priceText {
   font-size: clamp(10px, 1.8vw, 13px);
-  color: #52c41a;
   font-weight: 600;
 }
 
 .categoryText {
   font-size: clamp(9px, 1.8vw, 12px);
-  color: #1890ff;
   font-weight: 500;
 }
 
