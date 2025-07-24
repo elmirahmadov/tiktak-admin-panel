@@ -480,7 +480,7 @@ const Orders: React.FC = () => {
           onClick={() => handleViewDetails(record)}
           className={styles.detailButton}
         >
-          detallar
+          Göstər
         </Button>
       ),
       width: 120,
