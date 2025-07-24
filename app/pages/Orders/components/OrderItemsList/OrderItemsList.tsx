@@ -76,16 +76,9 @@ const OrderItemsList: React.FC<OrderItemsListProps> = ({
       />
 
       <div className={styles.totalSection}>
-        <div className={styles.subtotalInfo}>
-          <div className={styles.subtotalText}>Məhsul məbləği:</div>
-          <div className={styles.deliveryText}>
-            Çatdırılma:{" "}
-            {deliveryFee > 0 ? `${deliveryFee.toFixed(2)} ₼` : "Pulsuz"}
-          </div>
-        </div>
-        <div className={styles.totalAmounts}>
-          <div className={styles.subtotalAmount}>{total.toFixed(2)} ₼</div>
-          <div className={styles.grandTotal}>{grandTotal.toFixed(2)} ₼</div>
+        <div className={styles.deliveryText}>
+          Çatdırılma:{" "}
+          {deliveryFee > 0 ? `${deliveryFee.toFixed(2)} ₼` : "Pulsuz"}
         </div>
       </div>
     </Card>
