@@ -17,6 +17,10 @@ const Sidebar: React.FC = () => {
 
   const items = [
     {
+      key: ROUTER.ORDERS,
+      label: "Sifarişlər",
+    },
+    {
       key: ROUTER.CAMPAIGNS,
       label: "Kampaniyalar",
       className: isKampaniyalarActive ? styles.activeGreen : "",
@@ -36,10 +40,7 @@ const Sidebar: React.FC = () => {
       key: ROUTER.USERS,
       label: "İstifadəçilər",
     },
-    {
-      key: ROUTER.ORDERS,
-      label: "Sifarişlər",
-    },
+
     {
       key: "logout",
       label: "Çıxış",
