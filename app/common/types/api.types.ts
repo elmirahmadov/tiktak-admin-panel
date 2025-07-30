@@ -145,11 +145,12 @@ export interface IOrder {
 }
 
 export interface IOrderStats {
-  total_orders: number;
-  total_revenue: number;
-  pending_orders: number;
-  completed_orders: number;
-  cancelled_orders: number;
+  TOTAL: number;
+  TOTAL_REVENUE: number;
+  PENDING: number;
+  DELIVERED: number;
+  PREPARING: number;
+  CANCELLED?: number;
 }
 
 export interface IOrderStatusUpdate {
