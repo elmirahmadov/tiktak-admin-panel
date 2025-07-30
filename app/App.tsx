@@ -92,19 +92,19 @@ function App() {
         <main className={styles.content}>
           <Suspense fallback={<div></div>}>
             <Routes>
+              <Route path={ROUTER.ORDERS} element={<Orders />} />
               <Route path={ROUTER.CAMPAIGNS} element={<Campaigns />} />
               <Route path={ROUTER.CATEGORIES} element={<Categories />} />
               <Route path={ROUTER.PRODUCTS} element={<Products />} />
               <Route path={ROUTER.USERS} element={<Users />} />
-              <Route path={ROUTER.ORDERS} element={<Orders />} />
               {routes.map((route) => {
                 if (
                   ![
+                    ROUTER.ORDERS,
                     ROUTER.CAMPAIGNS,
                     ROUTER.CATEGORIES,
                     ROUTER.PRODUCTS,
                     ROUTER.USERS,
-                    ROUTER.ORDERS,
                   ].includes(route.pathname)
                 ) {
                   const Component = route.element;
