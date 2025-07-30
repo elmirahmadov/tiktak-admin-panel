@@ -51,6 +51,7 @@ const Orders: React.FC = () => {
 
   useEffect(() => {
     actions.getOrders();
+    actions.getOrderStats();
   }, []);
 
   const handleViewDetails = (record: Order) => {
@@ -69,7 +70,7 @@ const Orders: React.FC = () => {
     try {
       await actions.updateOrderStatus(selectedOrder.id, { status: newStatus });
       setSelectedOrder({ ...selectedOrder, status: newStatus });
-      actions.getOrders();
+      await Promise.all([actions.getOrders(), actions.getOrderStats()]);
     } catch (error) {
       console.error("Status güncelleme hatası:", error);
     }

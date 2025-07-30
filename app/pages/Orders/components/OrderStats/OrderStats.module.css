@@ -73,6 +73,12 @@
   flex-shrink: 0;
 }
 
+.iconPurple {
+  font-size: 18px;
+  color: #722ed1;
+  flex-shrink: 0;
+}
+
 .upArrow {
   color: #52c41a;
   font-size: 12px;
