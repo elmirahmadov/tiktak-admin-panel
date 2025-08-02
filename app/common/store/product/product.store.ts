@@ -44,8 +44,8 @@ export const useProductStore = create<IProductStore>((set, get) => ({
         console.error("Ürün yükleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Ürünleri Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Ürünleri yüklerken bir hata oluştu"}`,
+          message: "Məhsulları Yükləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Məhsulları yükləyərkən xəta baş verdi"}`,
           placement: "topRight",
         });
 
@@ -67,7 +67,7 @@ export const useProductStore = create<IProductStore>((set, get) => ({
           return currentProduct;
         }
 
-        throw new Error("Ürün bulunamadı");
+        throw new Error("Məhsul tapılmadı");
       } catch (err) {
         console.error("Ürün getirme hatası:", err);
         errCb?.(err);
@@ -88,8 +88,8 @@ export const useProductStore = create<IProductStore>((set, get) => ({
         }));
 
         notification.success({
-          message: "Ürün Oluşturuldu",
-          description: "Yeni ürün başarıyla oluşturuldu.",
+          message: "Məhsul Yaradıldı",
+          description: "Yeni məhsul uğurla yaradıldı.",
           placement: "topRight",
         });
 
@@ -99,8 +99,8 @@ export const useProductStore = create<IProductStore>((set, get) => ({
         console.error("Ürün oluşturma hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Ürün Oluşturma Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Ürün oluştururken bir hata oluştu"}`,
+          message: "Məhsul Yaradılması Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Məhsul yaradılarkən xəta baş verdi"}`,
           placement: "topRight",
         });
 
@@ -125,8 +125,8 @@ export const useProductStore = create<IProductStore>((set, get) => ({
         }));
 
         notification.success({
-          message: "Ürün Güncellendi",
-          description: "Ürün başarıyla güncellendi.",
+          message: "Məhsul Yeniləndi",
+          description: "Məhsul uğurla yeniləndi.",
           placement: "topRight",
         });
 
@@ -136,8 +136,8 @@ export const useProductStore = create<IProductStore>((set, get) => ({
         console.error("Ürün güncelleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Ürün Güncelleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Ürün güncellenirken bir hata oluştu"}`,
+          message: "Məhsul Yeniləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Məhsul yenilənərkən xəta baş verdi"}`,
           placement: "topRight",
         });
 
@@ -162,8 +162,8 @@ export const useProductStore = create<IProductStore>((set, get) => ({
         }));
 
         notification.success({
-          message: "Ürün Silindi",
-          description: "Ürün başarıyla silindi.",
+          message: "Məhsul Silindi",
+          description: "Məhsul uğurla silindi.",
           placement: "topRight",
         });
 
@@ -173,8 +173,8 @@ export const useProductStore = create<IProductStore>((set, get) => ({
         console.error("Ürün silme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Ürün Silme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Ürün silinirken bir hata oluştu"}`,
+          message: "Məhsul Silmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Məhsul silinərkən xəta baş verdi"}`,
           placement: "topRight",
         });
 

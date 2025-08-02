@@ -95,8 +95,8 @@ export const useOrderStore = create<IOrderStore>((set) => ({
         }));
 
         notification.success({
-          message: "Sifariş Statusu Güncəlləndi",
-          description: "Sipariş Statusunu Güncəllədiniz",
+          message: "Sifariş Statusu Yeniləndi",
+          description: "Sifariş statusu uğurla yeniləndi",
           placement: "topRight",
         });
 
@@ -118,4 +118,3 @@ export const useOrderStore = create<IOrderStore>((set) => ({
     },
   },
 }));
-

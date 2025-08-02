@@ -41,11 +41,10 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         cb?.(categories);
         return categories;
       } catch (err) {
-        console.error("Kategori yükleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kategori Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kategorileri yüklerken bir hata oluştu"}`,
+          message: "Kategori Yüklənməsi Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -67,9 +66,8 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
           return currentCategory;
         }
 
-        throw new Error("Kategori bulunamadı");
+        throw new Error("Kategori tapılmadı");
       } catch (err) {
-        console.error("Kategori getirme hatası:", err);
         errCb?.(err);
         return null;
       }
@@ -81,8 +79,6 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
       try {
         const response = await createCategory(data);
 
-        console.log("API'den dönen create response:", response);
-
         set((state) => ({
           categories: [response, ...state.categories],
           currentCategory: response,
@@ -90,8 +86,8 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         }));
 
         notification.success({
-          message: "Kategori Oluşturuldu",
-          description: "Yeni kategori başarıyla oluşturuldu.",
+          message: "Kategori Yaradıldı",
+          description: "Yeni kategori uğurla yaradıldı.",
           placement: "topRight",
           duration: 4,
         });
@@ -102,8 +98,8 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         console.error("Kategori oluşturma hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kategori Oluşturma Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kategori oluştururken bir hata oluştu"}`,
+          message: "Kateqoriya Yaradılması Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Kateqoriya yaradılarkən xəta baş verdi"}`,
           placement: "topRight",
         });
 
@@ -163,8 +159,8 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         });
 
         notification.success({
-          message: "Kategori Güncellendi",
-          description: "Kategori başarıyla güncellendi.",
+          message: "Kateqoriya Yeniləndi",
+          description: "Kateqoriya uğurla yeniləndi.",
           placement: "topRight",
           duration: 4,
         });
@@ -175,8 +171,8 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         console.error("Kategori güncelleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kategori Güncelleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kategori güncellenirken bir hata oluştu"}`,
+          message: "Kateqoriya Yeniləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Kateqoriya yenilənərkən xəta baş verdi"}`,
           placement: "topRight",
         });
 
@@ -201,8 +197,8 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         }));
 
         notification.success({
-          message: "Kategori Silindi",
-          description: "Kategori başarıyla silindi.",
+          message: "Kateqoriya Silindi",
+          description: "Kateqoriya uğurla silindi.",
           placement: "topRight",
           duration: 4,
         });
@@ -213,8 +209,8 @@ export const useCategoryStore = create<ICategoryStore>((set, get) => ({
         console.error("Kategori silme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kategori Silme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kategori silinirken bir hata oluştu"}`,
+          message: "Kateqoriya Silmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Kateqoriya silinərkən xəta baş verdi"}`,
           placement: "topRight",
         });
 

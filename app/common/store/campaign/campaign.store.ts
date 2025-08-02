@@ -41,11 +41,11 @@ export const useCampaignStore = create<ICampaignStore>((set) => ({
         cb?.(campaignsData);
         return campaignsData;
       } catch (err) {
-        console.error("Kampanya yükleme hatası:", err);
+        console.error("Kampaniyaları yükləmə xətası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kampanyaları Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kampanyaları yüklerken bir hata oluştu"}`,
+          message: "Kampaniyaları Yükləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -68,19 +68,18 @@ export const useCampaignStore = create<ICampaignStore>((set) => ({
         }));
 
         notification.success({
-          message: "Kampanya Oluşturuldu",
-          description: "Yeni kampanya başarıyla oluşturuldu.",
+          message: "Kampaniya Yaradıldı",
+          description: "Yeni kampaniya uğurla yaradıldı.",
           placement: "topRight",
         });
 
         cb?.(response);
         return response;
       } catch (err) {
-        console.error("Kampanya oluşturma hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kampanya Oluşturma Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kampanya oluştururken bir hata oluştu"}`,
+          message: "Kampaniya Yaradılması Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -105,19 +104,18 @@ export const useCampaignStore = create<ICampaignStore>((set) => ({
         }));
 
         notification.success({
-          message: "Kampanya Güncellendi",
-          description: "Kampanya başarıyla güncellendi.",
+          message: "Kampaniya Yeniləndi",
+          description: "Kampaniya uğurla yeniləndi.",
           placement: "topRight",
         });
 
         cb?.(response);
         return response;
       } catch (err) {
-        console.error("Kampanya güncelleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kampanya Güncelleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kampanya güncellenirken bir hata oluştu"}`,
+          message: "Kampaniya Yenilənməsi Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
@@ -142,19 +140,18 @@ export const useCampaignStore = create<ICampaignStore>((set) => ({
         }));
 
         notification.success({
-          message: "Kampanya Silindi",
-          description: "Kampanya başarıyla silindi.",
+          message: "Kampaniya Silindi",
+          description: "Kampaniya uğurla silindi.",
           placement: "topRight",
         });
 
         cb?.();
         return true;
       } catch (err) {
-        console.error("Kampanya silme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kampanya Silme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kampanya silinirken bir hata oluştu"}`,
+          message: "Kampaniya Silinməsi Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 

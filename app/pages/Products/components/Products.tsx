@@ -28,13 +28,13 @@ import { useProductStore } from "@/common/store/product/product.store";
 const { Title } = Typography;
 
 const PRODUCT_TYPES = [
-  { value: "kg", label: "Kiloqram (kg)" },
-  { value: "gr", label: "Qram (gr)" },
+  { value: "kg", label: "Kiloqram" },
+  { value: "gr", label: "Qram" },
   { value: "litre", label: "Litr" },
-  { value: "ml", label: "Millilitr (ml)" },
+  { value: "ml", label: "Millilitr" },
   { value: "meter", label: "Metr" },
-  { value: "cm", label: "Santimetr (cm)" },
-  { value: "mm", label: "Millimetr (mm)" },
+  { value: "cm", label: "Santimetr" },
+  { value: "mm", label: "Millimetr" },
   { value: "piece", label: "Ədəd" },
   { value: "packet", label: "Paket" },
   { value: "box", label: "Qutu" },

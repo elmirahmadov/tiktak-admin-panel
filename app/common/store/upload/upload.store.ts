@@ -38,8 +38,8 @@ export const useUploadStore = create<IUploadStore>((set) => ({
         }));
 
         notification.success({
-          message: "Dosya Yüklendi",
-          description: `${file.name} başarıyla yüklendi.`,
+          message: "Fayl Yükləndi",
+          description: `${file.name} uğurla yükləndi.`,
           placement: "topRight",
         });
 
@@ -49,8 +49,8 @@ export const useUploadStore = create<IUploadStore>((set) => ({
         console.error("Dosya yükleme hatası:", err);
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Dosya Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Dosya yüklenirken bir hata oluştu"}`,
+          message: "Fayl Yükləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Fayl yüklənərkən xəta baş verdi"}`,
           placement: "topRight",
         });
 
