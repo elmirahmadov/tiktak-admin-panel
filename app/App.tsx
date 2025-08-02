@@ -31,9 +31,9 @@ function App() {
     const checkAuth = async () => {
       if (token) {
         try {
-          await (getProfile as any)(token);
+          await getProfile();
         } catch (error) {
-          console.error("Profil yükleme hatası:", error);
+          console.error("Profil yüklənməsi xətası:", error);
         } finally {
           setInitialLoading(false);
           setAuthChecked(true);

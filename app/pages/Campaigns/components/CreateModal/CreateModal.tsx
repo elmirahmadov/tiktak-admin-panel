@@ -173,7 +173,7 @@ const CreateModal: React.FC<Props> = ({
           disabled={uploading || !img_url.trim() || !title.trim()}
         >
           {uploading
-            ? "Yükleniyor..."
+            ? "Yüknənir..."
             : isEdit
               ? "Məlumatları yenilə"
               : "Məlumatları yarat"}

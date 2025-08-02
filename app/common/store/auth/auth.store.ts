@@ -54,8 +54,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
             };
 
             if (!accessToken || !refreshToken) {
-              console.error("Token bilgileri eksik:", tokens);
-              throw new Error("Token bilgileri bulunamadı");
+              throw new Error("Token məlumatları eksikdir");
             }
 
             localStorage.setItem("access_token", accessToken);
@@ -74,8 +73,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
           }
         }
 
-        console.error("API yanıtı beklenen formatta değil:", response);
-        throw new Error("API yanıtı uygun formatta değil");
+        throw new Error("API uyğun formatda deyil");
       } catch (error) {
         console.error("Login error detail:", error);
         const errorResponse = error as ErrorResponse;
@@ -110,7 +108,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
         }
 
         if (!accessToken || !refreshTokenNew) {
-          throw new Error("Token bilgileri bulunamadı");
+          throw new Error("Token məlumatları eksikdir");
         }
 
         localStorage.setItem("access_token", accessToken);
@@ -125,7 +123,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
 
         cl?.();
       } catch (error) {
-        console.error("Refresh token hatası:", error);
+        console.error("Refresh token xətası:", error);
         err?.(error);
         set({ loading: false, isAuthenticated: false });
 
@@ -187,6 +185,21 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
           user: null,
         });
       }
+    },
+
+    logout: (cb) => {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+
+      set({
+        loading: false,
+        user: null,
+        accessToken: null,
+        refreshToken: null,
+        isAuthenticated: false,
+      });
+
+      cb?.();
     },
   },
 }));

@@ -34,8 +34,8 @@ export const useAdminStore = create<IAdminStore>((set) => ({
       } catch (err) {
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Profil Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Profil bilgilerini yüklerken bir hata oluştu"}`,
+          message: "Profil Yükləmə Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message || "Profil Yükləmə Xətası"}`,
           placement: "topRight",
         });
 
@@ -53,8 +53,8 @@ export const useAdminStore = create<IAdminStore>((set) => ({
       } catch (err) {
         const errorResponse = err as ErrorResponse;
         notification.error({
-          message: "Kullanıcı Yükleme Hatası",
-          description: `Hata: ${errorResponse?.response?.data?.message || "Kullanıcıları yüklerken bir hata oluştu"}`,
+          message: "İstifadəçilər Yüklənməsi Xətası",
+          description: `Xəta: ${errorResponse?.response?.data?.message}`,
           placement: "topRight",
         });
 
